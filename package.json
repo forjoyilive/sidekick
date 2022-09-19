@@ -1,0 +1,11 @@
+{
+    "name": "sidekick",
+    "version": "1.0.0",
+    "description": "Helping website admins get more done, more easily.",
+    "keywords": [
+        "wordpress",
+        "plugins"
+    ],
+    "author": "Nabha Cosley",
+    "license": "GPL v3git "
+}
