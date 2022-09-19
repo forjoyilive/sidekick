@@ -1,0 +1,27 @@
+{
+    "name": "forjoyilive/sidekick",
+    "description": "Helping website admins get more done, more easily.",
+	"license": "GPL-3.0-or-later",
+	"keywords": [
+		"wordpress",
+		"plugin"
+	],
+	"require": {
+		"php": ">=5.4.0"
+	},
+	"homepage": "https://github.com/forjoyilive/sidekick/",
+	"require-dev": {
+	},
+    "authors": [
+        {
+            "name": "Nabha Cosley",
+            "email": "forjoyilive@gmail.com"
+        }
+    ],
+	"autoload": {
+		"psr-4": {
+			"ForJoyILive\\Sidekick\\": "src",
+			"ForJoyILive\\Sidekick\\Modules\\": "src/modules"
+		}
+	}
+}

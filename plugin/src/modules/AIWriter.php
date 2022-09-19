@@ -7,3 +7,11 @@
  * @subpackage AI_Writer
  */
 
+namespace ForJoyILive\Sidekick\Modules;
+
+class AIWriter {
+
+    public function __construct() {
+    }
+
+}

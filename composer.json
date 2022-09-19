@@ -1,0 +1,30 @@
+{
+    "name": "forjoyilive/sidekick",
+    "description": "Helping website admins get more done, more easily.",
+	"license": "GPL-3.0+",
+	"version": "1.0.0",
+	"keywords": [
+		"wordpress",
+		"plugin"
+	],
+	"require": {
+		"php": ">=5.4.0"
+	},
+	"homepage": "https://github.com/imranhsayed/sidekick/",
+	"require-dev": {
+		"wp-coding-standards/wpcs": "^2.3",
+		"phpcompatibility/phpcompatibility-wp": "^2.1",
+        "php-stubs/wordpress-stubs": "^6.0"
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	},
+    "authors": [
+        {
+            "name": "Nabha Cosley",
+            "email": "forjoyilive@gmail.com"
+        }
+    ]
+}

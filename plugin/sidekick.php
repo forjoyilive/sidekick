@@ -1,24 +1,33 @@
 <?php
-
 /**
+ * Sidekick Plugin
+ * 
+ * @package sidekick
+ * @author Nabha Cosley
+ * 
+ * @wordpress-plugin
+ * 
  * Plugin Name:       Sidekick
- * Plugin URI:        https://forjoyi.live/sidekick/
+ * Plugin URI:        https://github.com/imranhsayed/sidekick/
  * Description:       Helping website admins get more done, more easily.
- * Version:           1.0
+ * Version:           1.0.0
  * Requires at least: 5.2
  * Requires PHP:      7.2
  * Author:            Nabha Cosley
  * Author URI:        https://forjoyi.live/
  * License:           GPL v3 or later
- * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Update URI:        https://forjoyi.live/sidekick/
+ * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
+ * Update URI:        https://github.com/imranhsayed/sidekick/
  * Text Domain:       fj-sidekick
  * Domain Path:       /languages
  */
 
-define( 'FJ_SIDEKICK_TEXTDOMAIN', 'fj-sidekick' )
+define( 'FJ_SIDEKICK_VERSION', '1.0.0' );
 
-/**
- * Modules
- */
-include_once( 'modules/ai-writer.php' );
+require_once( 'vendor/autoload.php' );
+
+use ForJoyILive\Sidekick\Plugin;
+
+if ( class_exists( 'ForJoyILive\Sidekick\Plugin' ) ) {
+    $the_plugin = new Plugin();
+}
