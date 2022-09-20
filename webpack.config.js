@@ -15,7 +15,7 @@ const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extract
 const ROOT_DIR = path.resolve(__dirname);
 const PLUGIN_DIR = path.resolve(__dirname, 'plugin/');
 const JS_DIR = path.resolve(__dirname, 'plugin/assets/src/js');
-const IMG_DIR = path.resolve(__dirname, 'plugin/assets/src/img');
+const IMG_DIR = path.resolve(__dirname, 'plugin/assets/src/images');
 const BUILD_DIR = path.resolve(__dirname, 'plugin/assets/build');
 
 const entry = {
@@ -41,7 +41,8 @@ const plugins = (argv) => [
 
 	new CopyPlugin( {
 		patterns: [
-			{ from: ROOT_DIR + '/LICENSE', to: PLUGIN_DIR }
+			{ from: ROOT_DIR + '/LICENSE', to: PLUGIN_DIR },
+			{ from: IMG_DIR, to: BUILD_DIR + '/images' }
 		]
 	} ),
 

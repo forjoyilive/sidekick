@@ -2,3 +2,4 @@ docker-compose.yml
 node_modules
 /vendor
 cypress.env.json
+.DS_Store
