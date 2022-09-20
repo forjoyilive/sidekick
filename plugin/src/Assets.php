@@ -44,6 +44,17 @@ class Assets {
 			);
 		}
 
+        // Theme Gutenberg blocks JS.
+		if ( is_admin() ) {
+			wp_enqueue_script(
+				'fj-sidekick-sidebar-js',
+				FJ_SIDEKICK_BUILD_URL . '/js/sidebar.js',
+				$js_dependencies,
+				$version,
+				true
+			);
+		}
+
 		// Theme Gutenberg blocks CSS.
 		$css_dependencies = [
 			'wp-block-library-theme',
