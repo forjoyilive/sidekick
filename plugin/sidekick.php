@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Sidekick Plugin
  * 
@@ -22,12 +23,12 @@
  * Domain Path:       /languages
  */
 
-define( 'FJ_SIDEKICK_VERSION', '1.0.0' );
+define('FJ_SIDEKICK_VERSION', '1.0.0');
 
-require_once( 'vendor/autoload.php' );
+require_once('vendor/autoload.php');
 
 use ForJoyILive\Sidekick\Plugin;
 
-if ( class_exists( 'ForJoyILive\Sidekick\Plugin' ) ) {
+if (class_exists('ForJoyILive\Sidekick\Plugin')) {
     $the_plugin = new Plugin();
 }

@@ -22,7 +22,7 @@ class FJSidekickSidebar extends React.Component {
             method: 'POST',
             headers: { 
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer '
+                    'Authorization': 'Bearer ' // Missing API key for now
                     },
             body: JSON.stringify({"model": "text-davinci-002", "prompt": this.props.prompt_metafield, "temperature": 0, "max_tokens": 256})
         };

@@ -201,7 +201,8 @@ var FJSidekickSidebar = /*#__PURE__*/function (_React$Component) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer '
+          'Authorization': 'Bearer ' // Missing API key for now
+
         },
         body: JSON.stringify({
           "model": "text-davinci-002",
