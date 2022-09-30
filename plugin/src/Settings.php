@@ -122,7 +122,6 @@ class Settings
             add_settings_error('fj_sidekick_messages', 'fj_sidekick_message', __('Settings Saved', FJ_SIDEKICK_TEXTDOMAIN), 'updated');
         }
 
-        settings_errors('fj_sidekick_messages');
     ?>
         <div class="wrap">
             <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
