@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Adds AI-assisted writing tools to post and page editing screens
+ * Adds settings for OpenAI API key
  * 
  * @package Sidekick
  * @subpackage AI_Writer
@@ -25,10 +25,8 @@ class Settings
 
     public function settings_init()
     {
-        // Register a new setting for "wporg" page.
         register_setting('fj_sidekick_options', 'fj_sidekick_openai_api_key');
 
-        // Register a new section in the "wporg" page.
         add_settings_section(
             'fj_sidekick_openai',
             __('OpenAI Settings', FJ_SIDEKICK_TEXTDOMAIN),
@@ -36,11 +34,9 @@ class Settings
             'fj_sidekick'
         );
 
-        // Register a new field in the "wporg_section_developers" section, inside the "wporg" page.
         add_settings_field(
-            'fj_sidekick_openai_api_key', // As of WP 4.6 this value is used only internally.
-            // Use $args' label_for to populate the id inside the callback.
-            __('API Key', 'wporg'),
+            'fj_sidekick_openai_api_key',
+            __('API Key', FJ_SIDEKICK_TEXTDOMAIN),
             array($this, 'openai_api_key_callback'),
             'fj_sidekick',
             'fj_sidekick_openai',
@@ -50,16 +46,6 @@ class Settings
             )
         );
     }
-
-    /**
-     * Register our wporg_settings_init to the admin_init action hook.
-     */
-
-
-    /**
-     * Custom option and settings:
-     *  - callback functions
-     */
 
 
     /**
@@ -72,18 +58,12 @@ class Settings
     }
 
     /**
-     * Pill field callbakc function.
-     *
-     * WordPress has magic interaction with the following keys: label_for, class.
-     * - the "label_for" key value is used for the "for" attribute of the <label>.
-     * - the "class" key value is used for the "class" attribute of the <tr> containing the field.
-     * Note: you can add custom key value pairs to be used inside your callbacks.
-     *
+     * Display the API key input field
+     * 
      * @param array $args
      */
     function openai_api_key_callback($args)
     {
-        // Get the value of the setting we've registered with register_setting()
         $openai_api_key = get_option('fj_sidekick_openai_api_key');
 ?>
 
@@ -96,7 +76,7 @@ class Settings
     }
 
     /**
-     * Add the top level menu page.
+     * Add the options page.
      */
     function add_options_page()
     {
@@ -110,7 +90,7 @@ class Settings
     }
 
     /**
-     * Top level menu callback function
+     * Display the options page
      */
     function options_page_html()
     {
@@ -123,7 +103,8 @@ class Settings
         }
 
     ?>
-        <div class="wrap">
+        <div class="wrap fj-sidekick-options">
+            <img alt="<?php _e('Sidekick logo', FJ_SIDEKICK_TEXTDOMAIN); ?>" src="<?php echo FJ_SIDEKICK_BUILD_URL . '/images/s-logo.svg'; ?>" class="fj-sidekick-logo" />
             <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
             <form action="options.php" method="post">
                 <?php

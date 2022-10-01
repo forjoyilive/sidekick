@@ -17,6 +17,20 @@ class Assets
 	private function init()
 	{
 		add_action('enqueue_block_assets', [$this, 'enqueue_editor_assets']);
+		add_action('admin_enqueue_scripts', [$this, 'enqueue_settings_assets']);
+	}
+
+	public function enqueue_settings_assets()
+	{
+		if (isset($_GET['page']) && $_GET['page'] === 'fj_sidekick') {
+			wp_enqueue_style(
+				'fj-sidekick-settings-css',
+				FJ_SIDEKICK_BUILD_URL . '/css/settings.css',
+				array(),
+				filemtime(FJ_SIDEKICK_BUILD_PATH . '/css/settings.css'),
+				'all'
+			);
+		}
 	}
 
 	public function enqueue_editor_assets()

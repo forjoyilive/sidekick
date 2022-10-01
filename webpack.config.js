@@ -21,6 +21,7 @@ const BUILD_DIR = path.resolve(__dirname, 'plugin/assets/build');
 const entry = {
 	editor: JS_DIR + '/editor.js',
 	sidebar: JS_DIR + '/sidebar.js',
+	settings: JS_DIR + '/settings.js',
 };
 
 const output = {

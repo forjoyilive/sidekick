@@ -39,14 +39,22 @@ class FJSidekickSidebar extends React.Component {
 				prompt: this.props.prompt_metafield,
 				temperature: 0,
 				max_tokens: this.state.length,
+				// top_p: 1,
+				// frequency_penalty: 0,
+				// presence_penalty: 0,
 			}),
 		};
 
 		fetch('https://api.openai.com/v1/completions', requestOptions)
 			.then((response) => response.json())
 			.then((data) => {
+				const results =
+					data && data.choices && data.choices[0]
+						? data.choices[0].text.trim()
+						: '';
+
 				this.setState({
-					results: data.choices[0].text.trim(),
+					results,
 					loading: false,
 				});
 			});

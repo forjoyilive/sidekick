@@ -266,14 +266,19 @@ var FJSidekickSidebar = /*#__PURE__*/function (_React$Component) {
           model: 'text-davinci-002',
           prompt: _this.props.prompt_metafield,
           temperature: 0,
-          max_tokens: _this.state.length
+          max_tokens: _this.state.length // top_p: 1,
+          // frequency_penalty: 0,
+          // presence_penalty: 0,
+
         })
       };
       fetch('https://api.openai.com/v1/completions', requestOptions).then(function (response) {
         return response.json();
       }).then(function (data) {
+        var results = data && data.choices && data.choices[0] ? data.choices[0].text.trim() : '';
+
         _this.setState({
-          results: data.choices[0].text.trim(),
+          results: results,
           loading: false
         });
       });
