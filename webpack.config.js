@@ -15,7 +15,7 @@ const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extract
 const ROOT_DIR = path.resolve(__dirname);
 const PLUGIN_DIR = path.resolve(__dirname, 'plugin/');
 const JS_DIR = path.resolve(__dirname, 'plugin/assets/src/js');
-const IMG_DIR = path.resolve(__dirname, 'plugin/assets/src/images');
+const IMG_DIR = path.resolve(__dirname, 'plugin/assets/src/img');
 const BUILD_DIR = path.resolve(__dirname, 'plugin/assets/build');
 
 const entry = {
@@ -30,6 +30,8 @@ const output = {
 
 /**
  * Note: argv.mode will return 'development' or 'production'.
+ *
+ * @param  argv
  */
 const plugins = (argv) => [
 	new CleanWebpackPlugin({
@@ -40,12 +42,12 @@ const plugins = (argv) => [
 		filename: 'css/[name].css',
 	}),
 
-	new CopyPlugin( {
+	new CopyPlugin({
 		patterns: [
 			{ from: ROOT_DIR + '/LICENSE', to: PLUGIN_DIR },
-			{ from: IMG_DIR, to: BUILD_DIR + '/images' }
-		]
-	} ),
+			{ from: IMG_DIR, to: BUILD_DIR + '/images' },
+		],
+	}),
 
 	new DependencyExtractionWebpackPlugin({
 		injectPolyfill: true,

@@ -40,7 +40,7 @@ class Settings
         add_settings_field(
             'fj_sidekick_openai_api_key', // As of WP 4.6 this value is used only internally.
             // Use $args' label_for to populate the id inside the callback.
-            __('OpenAI API Key', 'wporg'),
+            __('API Key', 'wporg'),
             array($this, 'openai_api_key_callback'),
             'fj_sidekick',
             'fj_sidekick_openai',

@@ -10,6 +10,8 @@ import {
 } from '@wordpress/components';
 import { withSelect, withDispatch } from '@wordpress/data';
 import React from 'react';
+import SidekickLogo from './s-logo';
+
 class FJSidekickSidebar extends React.Component {
 	constructor(props) {
 		super(props);
@@ -117,7 +119,7 @@ FJSidekickSidebar = withDispatch((dispatch) => {
 })(FJSidekickSidebar);
 
 registerPlugin('fj-sidekick-sidebar', {
-	icon: 'format-aside',
+	icon: SidekickLogo,
 	render: () => {
 		return (
 			<>
