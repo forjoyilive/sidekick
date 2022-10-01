@@ -1,0 +1,1 @@
+{"version":3,"file":"css/settings.css","mappings":";;;AAAA;EAGQ,WAAW;EACX,YAAY","sources":["webpack://sidekick/./plugin/assets/src/sass/settings.scss"],"sourcesContent":[".fj-sidekick-options {\n\n    .fj-sidekick-logo {\n        width: 50px;\n        height: 50px;\n    }\n}"],"names":[],"sourceRoot":""}
