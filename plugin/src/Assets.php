@@ -6,35 +6,39 @@
 
 namespace ForJoyILive\Sidekick;
 
-class Assets {
+class Assets
+{
 
-    public function __construct() {
-        $this->init();
-    }
+	public function __construct()
+	{
+		$this->init();
+	}
 
-    private function init() {
-        add_action( 'enqueue_block_assets', [ $this, 'enqueue_editor_assets' ] );
-    }
+	private function init()
+	{
+		add_action('enqueue_block_assets', [$this, 'enqueue_editor_assets']);
+	}
 
-    public function enqueue_editor_assets() {
+	public function enqueue_editor_assets()
+	{
 
-        $asset_config_file = sprintf( '%s/assets.php', FJ_SIDEKICK_BUILD_PATH );
+		$asset_config_file = sprintf('%s/assets.php', FJ_SIDEKICK_BUILD_PATH);
 
-        if ( ! file_exists( $asset_config_file ) ) {
-            return;
-        }
-
-        $asset_config = include_once $asset_config_file;
-        if ( empty( $asset_config['js/editor.js'] ) ) {
+		if (!file_exists($asset_config_file)) {
 			return;
 		}
 
-        $editor_asset    = $asset_config['js/editor.js'];
-        $js_dependencies = ( ! empty( $editor_asset['dependencies'] ) ) ? $editor_asset['dependencies'] : [];
-		$version         = ( ! empty( $editor_asset['version'] ) ) ? $editor_asset['version'] : filemtime( $asset_config_file );
+		$asset_config = include_once $asset_config_file;
+		if (empty($asset_config['js/editor.js'])) {
+			return;
+		}
 
-        // Theme Gutenberg blocks JS.
-		if ( is_admin() ) {
+		$editor_asset    = $asset_config['js/editor.js'];
+		$js_dependencies = (!empty($editor_asset['dependencies'])) ? $editor_asset['dependencies'] : [];
+		$version         = (!empty($editor_asset['version'])) ? $editor_asset['version'] : filemtime($asset_config_file);
+
+		// Theme Gutenberg blocks JS.
+		if (is_admin()) {
 			wp_enqueue_script(
 				'fj-sidekick-blocks-js',
 				FJ_SIDEKICK_BUILD_URL . '/js/editor.js',
@@ -44,8 +48,8 @@ class Assets {
 			);
 		}
 
-        // Theme Gutenberg blocks JS.
-		if ( is_admin() ) {
+		// Theme Gutenberg blocks JS.
+		if (is_admin()) {
 			wp_enqueue_script(
 				'fj-sidekick-sidebar-js',
 				FJ_SIDEKICK_BUILD_URL . '/js/sidebar.js',
@@ -53,6 +57,10 @@ class Assets {
 				$version,
 				true
 			);
+
+			$script = 'var fj_sidekick = fj_sidekick || {}; fj_sidekick.openai_api_key = "' . get_option('fj_sidekick_openai_api_key') . '";';
+
+			wp_add_inline_script('fj-sidekick-sidebar-js', $script, 'before');
 		}
 
 		// Theme Gutenberg blocks CSS.
@@ -65,10 +73,8 @@ class Assets {
 			'fj-sidekick-blocks-css',
 			FJ_SIDEKICK_BUILD_URL . '/css/editor.css',
 			$css_dependencies,
-			filemtime( FJ_SIDEKICK_BUILD_PATH . '/css/editor.css' ),
+			filemtime(FJ_SIDEKICK_BUILD_PATH . '/css/editor.css'),
 			'all'
 		);
-
-    }
-
+	}
 }

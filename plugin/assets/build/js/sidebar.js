@@ -201,17 +201,16 @@ var FJSidekickSidebar = /*#__PURE__*/function (_React$Component) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' // Missing API key for now
-
+          Authorization: 'Bearer ' + _this.state.apiKey
         },
         body: JSON.stringify({
-          "model": "text-davinci-002",
-          "prompt": _this.props.prompt_metafield,
-          "temperature": 0,
-          "max_tokens": 256
+          model: 'text-davinci-002',
+          prompt: _this.props.prompt_metafield,
+          temperature: 0,
+          max_tokens: _this.state.length
         })
       };
-      fetch("https://api.openai.com/v1/completions", requestOptions).then(function (response) {
+      fetch('https://api.openai.com/v1/completions', requestOptions).then(function (response) {
         return response.json();
       }).then(function (data) {
         _this.setState({
@@ -223,7 +222,9 @@ var FJSidekickSidebar = /*#__PURE__*/function (_React$Component) {
 
     _this.state = {
       results: '',
-      loading: false
+      loading: false,
+      apiKey: fj_sidekick.openai_api_key,
+      length: 150
     };
     return _this;
   }
@@ -234,29 +235,39 @@ var FJSidekickSidebar = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default().createElement((react__WEBPACK_IMPORTED_MODULE_5___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
-        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("AI Writer", "fj-sidekick"),
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('AI Writer', 'fj-sidekick'),
         icon: "welcome-write-blog",
         intialOpen: true
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextareaControl, {
         value: this.props.prompt_metafield,
-        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Prompt", "fj-sidekick"),
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Prompt', 'fj-sidekick'),
         onChange: function onChange(value) {
           return _this2.props.onMetaFieldChange(value);
+        }
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.RangeControl, {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Length', 'fj-sidekick'),
+        min: 10,
+        max: 250,
+        value: this.state.length,
+        onChange: function onChange(value) {
+          return _this2.setState({
+            length: value
+          });
         }
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
         isPrimary: true,
         onClick: this.onButtonClick,
         style: {
           marginBottom: 20
-        }
-      }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Get Content", "fj-sidekick")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextareaControl, {
+        },
+        disabled: this.state.loading
+      }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Get Content', 'fj-sidekick')), !this.state.loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextareaControl, {
         value: this.state.results,
-        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Result", "fj-sidekick"),
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Result', 'fj-sidekick'),
         style: {
-          height: 200,
-          backgroundColor: this.state.loading ? 'blue' : 'rgba(0, 0, 0, 0)'
+          height: 300
         }
-      })));
+      }), this.state.loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Spinner, null)));
     }
   }]);
 
@@ -265,7 +276,7 @@ var FJSidekickSidebar = /*#__PURE__*/function (_React$Component) {
 
 FJSidekickSidebar = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_4__.withSelect)(function (select) {
   return {
-    prompt_metafield: select('core/editor').getEditedPostAttribute('meta')['_fj_sidekick_prompt_metafield']
+    prompt_metafield: select('core/editor').getEditedPostAttribute('meta')._fj_sidekick_prompt_metafield
   };
 })(FJSidekickSidebar);
 FJSidekickSidebar = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_4__.withDispatch)(function (dispatch) {
