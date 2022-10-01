@@ -4,5 +4,8 @@
 .components-button.is-pressed #path24 {
   fill: #fff !important; }
 
+.components-button.fj-sidekick-copy-button {
+  padding: 0; }
+
 
 /*# sourceMappingURL=editor.css.map*/

@@ -58,9 +58,9 @@ class Assets
 				true
 			);
 
-			$script = 'var fjSidekick = fjSidekick || {}; fjSidekick.openai_api_key = "' . get_option('fj_sidekick_openai_api_key') . '";';
+			$fjSidekickVars = 'var fjSidekick = fjSidekick || {}; fjSidekick.openaiApiKey = "' . get_option('fj_sidekick_openai_api_key') . '";';
 
-			wp_add_inline_script('fj-sidekick-sidebar-js', $script, 'before');
+			wp_add_inline_script('fj-sidekick-sidebar-js', $fjSidekickVars, 'before');
 		}
 
 		// Theme Gutenberg blocks CSS.

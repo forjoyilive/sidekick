@@ -282,7 +282,7 @@ var FJSidekickSidebar = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       results: '',
       loading: false,
-      apiKey: fjSidekick.openai_api_key,
+      apiKey: fjSidekick.openaiApiKey,
       length: 150
     };
     return _this;
@@ -320,7 +320,7 @@ var FJSidekickSidebar = /*#__PURE__*/function (_React$Component) {
           marginBottom: 20
         },
         disabled: this.state.loading
-      }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Get Content', 'fj-sidekick')), !this.state.loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default().createElement((react__WEBPACK_IMPORTED_MODULE_5___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextareaControl, {
+      }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Get Content', 'fj-sidekick')), this.state.loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Spinner, null), this.state.results && !this.state.loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default().createElement((react__WEBPACK_IMPORTED_MODULE_5___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.__experimentalDivider, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextareaControl, {
         value: this.state.results,
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Result', 'fj-sidekick'),
         style: {
@@ -329,10 +329,11 @@ var FJSidekickSidebar = /*#__PURE__*/function (_React$Component) {
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
         onClick: function onClick() {
           return navigator.clipboard.writeText(_this2.state.results);
-        }
+        },
+        className: "fj-sidekick-copy-button"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Icon, {
         icon: "admin-page"
-      }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Copy to Clipboard', 'fj-sidekick'))), this.state.loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Spinner, null)));
+      }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Copy to Clipboard', 'fj-sidekick')))));
     }
   }]);
 
