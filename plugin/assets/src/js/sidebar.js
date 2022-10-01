@@ -104,6 +104,7 @@ class FJSidekickSidebar extends React.Component {
 								style={{
 									height: 300,
 								}}
+								onClick={(e) => e.target.select()}
 							/>
 							<Button
 								onClick={() =>

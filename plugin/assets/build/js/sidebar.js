@@ -330,6 +330,9 @@ var FJSidekickSidebar = /*#__PURE__*/function (_React$Component) {
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Result', 'fj-sidekick'),
         style: {
           height: 300
+        },
+        onClick: function onClick(e) {
+          return e.target.select();
         }
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
         onClick: function onClick() {
