@@ -7,6 +7,7 @@ import {
 	Button,
 	RangeControl,
 	Spinner,
+	Icon,
 } from '@wordpress/components';
 import { withSelect, withDispatch } from '@wordpress/data';
 import React from 'react';
@@ -18,7 +19,7 @@ class FJSidekickSidebar extends React.Component {
 		this.state = {
 			results: '',
 			loading: false,
-			apiKey: fj_sidekick.openai_api_key,
+			apiKey: fjSidekick.openai_api_key,
 			length: 150,
 		};
 	}
@@ -84,13 +85,25 @@ class FJSidekickSidebar extends React.Component {
 					</Button>
 
 					{!this.state.loading && (
-						<TextareaControl
-							value={this.state.results}
-							label={__('Result', 'fj-sidekick')}
-							style={{
-								height: 300,
-							}}
-						/>
+						<>
+							<TextareaControl
+								value={this.state.results}
+								label={__('Result', 'fj-sidekick')}
+								style={{
+									height: 300,
+								}}
+							/>
+							<Button
+								onClick={() =>
+									navigator.clipboard.writeText(
+										this.state.results
+									)
+								}
+							>
+								<Icon icon="admin-page" />
+								{__('Copy to Clipboard', 'fj-sidekick')}
+							</Button>
+						</>
 					)}
 
 					{this.state.loading && <Spinner />}

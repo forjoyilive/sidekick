@@ -58,7 +58,7 @@ class Assets
 				true
 			);
 
-			$script = 'var fj_sidekick = fj_sidekick || {}; fj_sidekick.openai_api_key = "' . get_option('fj_sidekick_openai_api_key') . '";';
+			$script = 'var fjSidekick = fjSidekick || {}; fjSidekick.openai_api_key = "' . get_option('fj_sidekick_openai_api_key') . '";';
 
 			wp_add_inline_script('fj-sidekick-sidebar-js', $script, 'before');
 		}
