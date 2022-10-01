@@ -1,0 +1,1 @@
+{"version":3,"file":"css/editor.css","mappings":";;;AAEA;EACI,qBAAqB","sources":["webpack://sidekick/./plugin/assets/src/sass/editor.scss"],"sourcesContent":["// Styles to be added.\n\n.components-button.is-pressed #path24 {\n    fill: #fff !important;\n}"],"names":[],"sourceRoot":""}
