@@ -17,7 +17,7 @@ class Meta
 	public function register_user_fields()
 	{
 
-		// fj_sidekick_history.items is an array with 'query' and 'result' properties
+		// fj_sidekick_history.items is an array of objects with 'prompt', 'result', and 'length' properties
 		register_meta('user', 'fj_sidekick_history', array(
 			"type" => "object",
 			"single" => true,
