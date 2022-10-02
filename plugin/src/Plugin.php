@@ -25,5 +25,6 @@ class Plugin
         new Assets();
         new Modules\AIWriter();
         new Settings();
+        new Meta();
     }
 }

@@ -18,14 +18,47 @@ class FJSidekickSidebar extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			results: '',
 			loading: false,
 			apiKey: fjSidekick.openaiApiKey,
+			prompt: '',
+			result: '',
 			length: 150,
 		};
 	}
 
+	async componentDidMount() {
+		await this.warmUpEditEntityRecord();
+
+		// Not sure how to get this to work without setTimeout, getCurrentUser() seems to need it
+		setTimeout(() => {
+			this.setInitialState();
+		}, 50);
+	}
+
+	setInitialState = async () => {
+		const user = await this.props.getCurrentUser();
+		const lastIndex = user.meta.fj_sidekick_history.items.length - 1;
+		const lastItem = user.meta.fj_sidekick_history.items[lastIndex];
+
+		if (lastItem) {
+			this.setState({
+				prompt: lastItem.prompt,
+				result: lastItem.result,
+				length: lastItem.length,
+			});
+		}
+	};
+
+	// This prevents editEntityRecord from failing with an "undefined" error on its first call
+	warmUpEditEntityRecord = async () => {
+		await this.props.getCurrentUser();
+		await this.props.editEntityRecord('root', 'user', 1, {});
+		await this.props.saveEditedEntityRecord('root', 'user', 1);
+	};
+
 	onButtonClick = () => {
+		this.warmUpEditEntityRecord();
+
 		this.setState({ loading: true });
 
 		const requestOptions = {
@@ -36,7 +69,7 @@ class FJSidekickSidebar extends React.Component {
 			},
 			body: JSON.stringify({
 				model: 'text-davinci-002',
-				prompt: this.props.prompt_metafield,
+				prompt: this.state.prompt,
 				temperature: 0,
 				max_tokens: this.state.length,
 				// top_p: 1,
@@ -48,16 +81,64 @@ class FJSidekickSidebar extends React.Component {
 		fetch('https://api.openai.com/v1/completions', requestOptions)
 			.then((response) => response.json())
 			.then((data) => {
-				const results =
+				const result =
 					data && data.choices && data.choices[0]
 						? data.choices[0].text.trim()
 						: '';
 
-				this.setState({
-					results,
-					loading: false,
-				});
+				this.setState({ result });
+				this.setState({ loading: false });
+
+				this.updatePrompt(this.state.prompt);
+				this.addHistoryItem(this.state.prompt, result);
 			});
+	};
+
+	updatePrompt = async (prompt) => {
+		const user = await this.props.getCurrentUser();
+
+		const currentHistory =
+			(user && user.meta && user.meta.fj_sidekick_history) || [];
+		const currentMeta = (user && user.meta) || [];
+
+		const meta = {
+			...currentMeta,
+			fj_sidekick_history: { ...currentHistory, last_prompt: prompt },
+		};
+
+		await this.props.editEntityRecord('root', 'user', user.id, {
+			meta,
+		});
+		await this.props.saveEditedEntityRecord('root', 'user', user.id);
+	};
+
+	addHistoryItem = async (prompt, result) => {
+		try {
+			const user = await this.props.getCurrentUser();
+			const currentItems =
+				(user &&
+					user.meta &&
+					user.meta.fj_sidekick_history &&
+					user.meta.fj_sidekick_history.items) ||
+				[];
+			const currentMeta = (user && user.meta) || [];
+			const items = [
+				...currentItems,
+				{ prompt, result, length: this.state.length },
+			];
+			const meta = {
+				...currentMeta,
+				fj_sidekick_history: {
+					items,
+				},
+			};
+			await this.props.editEntityRecord('root', 'user', user.id, {
+				meta,
+			});
+			await this.props.saveEditedEntityRecord('root', 'user', user.id);
+		} catch (error) {
+			console.log('There was an error saving the history item.', error);
+		}
 	};
 
 	render() {
@@ -69,18 +150,16 @@ class FJSidekickSidebar extends React.Component {
 					intialOpen={true}
 				>
 					<TextareaControl
-						value={this.props.prompt_metafield}
+						value={this.state.prompt}
 						label={__('Prompt', 'fj-sidekick')}
-						onChange={(value) =>
-							this.props.onMetaFieldChange(value)
-						}
+						onChange={(value) => this.setState({ prompt: value })}
 					/>
 
 					<RangeControl
 						label={__('Length', 'fj-sidekick')}
 						min={10}
 						max={250}
-						value={this.state.length}
+						value={this.state.length ? this.state.length : 150}
 						onChange={(value) => this.setState({ length: value })}
 					/>
 
@@ -95,11 +174,11 @@ class FJSidekickSidebar extends React.Component {
 
 					{this.state.loading && <Spinner />}
 
-					{this.state.results && !this.state.loading && (
+					{this.state.result && !this.state.loading && (
 						<>
 							<Divider />
 							<TextareaControl
-								value={this.state.results}
+								value={this.state.result}
 								label={__('Result', 'fj-sidekick')}
 								style={{
 									height: 300,
@@ -109,7 +188,7 @@ class FJSidekickSidebar extends React.Component {
 							<Button
 								onClick={() =>
 									navigator.clipboard.writeText(
-										this.state.results
+										this.state.result
 									)
 								}
 								className="fj-sidekick-copy-button"
@@ -127,19 +206,15 @@ class FJSidekickSidebar extends React.Component {
 
 FJSidekickSidebar = withSelect((select) => {
 	return {
-		prompt_metafield:
-			select('core/editor').getEditedPostAttribute('meta')
-				._fj_sidekick_prompt_metafield,
+		getCurrentUser: select('core').getCurrentUser,
+		getEntityRecord: select('core').getEntityRecord,
 	};
 })(FJSidekickSidebar);
 
 FJSidekickSidebar = withDispatch((dispatch) => {
 	return {
-		onMetaFieldChange: (value) => {
-			dispatch('core/editor').editPost({
-				meta: { _fj_sidekick_prompt_metafield: value },
-			});
-		},
+		editEntityRecord: dispatch('core').editEntityRecord,
+		saveEditedEntityRecord: dispatch('core').saveEditedEntityRecord,
 	};
 })(FJSidekickSidebar);
 
