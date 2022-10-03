@@ -12,5 +12,10 @@
   display: block;
   margin: 0 auto; }
 
+.fj-sidekick-sidebar .fj-sidekick-history-item {
+  margin-bottom: 1em; }
+  .fj-sidekick-sidebar .fj-sidekick-history-item .fj-sidekick-history-item-prompt {
+    font-weight: 700; }
+
 
 /*# sourceMappingURL=editor.css.map*/
