@@ -6,9 +6,6 @@ const SidekickLogo = () => {
 			viewBox="0 0 1133.8533 1133.8533"
 			height="1133.8533"
 			width="1133.8533"
-			xmlSpace="preserve"
-			id="svg2"
-			version="1.1"
 		>
 			<defs id="defs6" />
 			<g
