@@ -4,8 +4,13 @@
 .components-button.is-pressed #path24 {
   fill: #fff !important; }
 
-.components-button.fj-sidekick-copy-button {
+.fj-sidekick-sidebar .components-button.fj-sidekick-copy-button {
   padding: 0; }
+
+.fj-sidekick-sidebar .fj-sidekick-aiwriter-history > .components-spinner,
+.fj-sidekick-sidebar .fj-sidekick-aiwriter-compose > .components-spinner {
+  display: block;
+  margin: 0 auto; }
 
 
 /*# sourceMappingURL=editor.css.map*/

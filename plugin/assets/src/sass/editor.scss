@@ -1,10 +1,18 @@
-// Styles to be added.
-
 // Reverse Sidekick icon when active
 .components-button.is-pressed #path24 {
-    fill: #fff !important;
+	fill: #fff !important;
 }
 
-.components-button.fj-sidekick-copy-button {
-    padding: 0;
+.fj-sidekick-sidebar {
+
+	.components-button.fj-sidekick-copy-button {
+		padding: 0;
+	}
+
+	.fj-sidekick-aiwriter-history > .components-spinner,
+	.fj-sidekick-aiwriter-compose > .components-spinner {
+		display: block;
+		margin: 0 auto;
+	}
+
 }

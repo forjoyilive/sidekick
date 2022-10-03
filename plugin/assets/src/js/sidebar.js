@@ -62,6 +62,7 @@ registerPlugin('fj-sidekick-sidebar', {
 					name="fj-sidekick-sidebar"
 					title={__('Sidekick', 'fj-sidekick')}
 					icon={SidekickLogo}
+					className="fj-sidekick-sidebar"
 				>
 					<TabPanel
 						className="fj-sidekick-tab-panel"
