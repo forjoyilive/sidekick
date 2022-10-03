@@ -120,7 +120,7 @@ function Compose(_ref) {
 
   var restoreStateFromHistory = function restoreStateFromHistory() {
     var lastIndex = historyItems.length - 1;
-    var lastItem = historyItems[lastIndex];
+    var lastItem = historyItems[lastIndex]; // If history was cleared, don't delete what's currently there
 
     if (lastItem) {
       setPrompt(lastItem.prompt);
@@ -136,7 +136,7 @@ function Compose(_ref) {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Compose', 'fj-sidekick'),
     icon: "welcome-write-blog",
     className: "fj-sidekick-aiwriter-compose",
-    intialOpen: true
+    initialOpen: true
   }, historyLoading && /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Spinner, null), !historyLoading && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextareaControl, {
     value: prompt,
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Prompt', 'fj-sidekick'),
@@ -226,11 +226,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
  * @param  root0.update
  * @param  root0.historyItems
  * @param  root0.historyLoading
+ * @param  root0.clearHistory
  */
 
 function History(_ref) {
   var historyItems = _ref.historyItems,
-      historyLoading = _ref.historyLoading;
+      historyLoading = _ref.historyLoading,
+      clearHistory = _ref.clearHistory;
 
   var _useState = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -278,9 +280,12 @@ function History(_ref) {
   }, [historyItems]);
   return /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('History', 'fj-sidekick'),
-    intialOpen: false,
+    initialOpen: false,
     className: "fj-sidekick-aiwriter-history"
-  }, historyLoading && /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Spinner, null), !historyLoading && history);
+  }, historyLoading && /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Spinner, null), !historyLoading && /*#__PURE__*/React.createElement(React.Fragment, null, history, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+    isPrimary: true,
+    onClick: clearHistory
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Clear History', 'fj-sidekick'))));
 }
 
 /***/ }),
@@ -413,9 +418,7 @@ function AiWriter() {
 
   var getHistory = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-      var _currentUser$meta;
-
-      var currentUser, _updatedUserRecord$me, _updatedUserRecord$me2, updatedUserRecord, unsubscribe;
+      var currentUser, updatedUserRecord, _updatedUserRecord$me, _updatedUserRecord$me2, unsubscribe;
 
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) {
@@ -427,34 +430,30 @@ function AiWriter() {
 
             case 3:
               currentUser = _context2.sent;
-
-              if (!(0 < historyItems.length && (_currentUser$meta = currentUser.meta) !== null && _currentUser$meta !== void 0 && _currentUser$meta.fj_sidekick_history)) {
-                _context2.next = 12;
-                break;
-              }
-
-              _context2.next = 7;
+              _context2.next = 6;
               return getEntityRecord('root', 'user', currentUser.id);
 
-            case 7:
+            case 6:
               updatedUserRecord = _context2.sent;
-              setHistoryItems((_updatedUserRecord$me = updatedUserRecord.meta) === null || _updatedUserRecord$me === void 0 ? void 0 : (_updatedUserRecord$me2 = _updatedUserRecord$me.fj_sidekick_history) === null || _updatedUserRecord$me2 === void 0 ? void 0 : _updatedUserRecord$me2.items);
-              setHistoryLoading(false);
-              _context2.next = 13;
-              break;
 
-            case 12:
-              unsubscribe = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.subscribe)(function () {
-                var isResolvingCurrentUser = isResolving('core', 'getCurrentUser');
+              if (updatedUserRecord) {
+                // On panel re-open and history refresh
+                setHistoryItems((_updatedUserRecord$me = updatedUserRecord.meta) === null || _updatedUserRecord$me === void 0 ? void 0 : (_updatedUserRecord$me2 = _updatedUserRecord$me.fj_sidekick_history) === null || _updatedUserRecord$me2 === void 0 ? void 0 : _updatedUserRecord$me2.items);
+                setHistoryLoading(false);
+              } else {
+                // On page load
+                unsubscribe = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.subscribe)(function () {
+                  var isResolvingCurrentUser = isResolving('core', 'getCurrentUser');
 
-                if (!isResolvingCurrentUser) {
-                  unsubscribe();
-                  setHistoryItems(currentUser.meta.fj_sidekick_history.items);
-                  setHistoryLoading(false);
-                }
-              });
+                  if (!isResolvingCurrentUser) {
+                    unsubscribe();
+                    setHistoryItems(currentUser.meta.fj_sidekick_history.items);
+                    setHistoryLoading(false);
+                  }
+                });
+              }
 
-            case 13:
+            case 8:
             case "end":
               return _context2.stop();
           }
@@ -570,6 +569,56 @@ function AiWriter() {
     };
   }();
 
+  var clearHistory = /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+      var currentUser, meta, history, newItems, newMeta;
+      return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              _context5.next = 2;
+              return getCurrentUser();
+
+            case 2:
+              currentUser = _context5.sent;
+              meta = currentUser && currentUser.meta || [];
+              history = meta && meta.fj_sidekick_history || null;
+              newItems = [];
+
+              while (numberOfHistoryItems < newItems.length) {
+                newItems.shift();
+              }
+
+              newMeta = _objectSpread(_objectSpread({}, meta), {}, {
+                fj_sidekick_history: _objectSpread(_objectSpread({}, history), {}, {
+                  items: newItems
+                })
+              });
+              _context5.next = 10;
+              return editEntityRecord('root', 'user', currentUser.id, {
+                meta: newMeta
+              });
+
+            case 10:
+              _context5.next = 12;
+              return saveEditedEntityRecord('root', 'user', currentUser.id);
+
+            case 12:
+              getHistory();
+
+            case 13:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
+    }));
+
+    return function clearHistory() {
+      return _ref5.apply(this, arguments);
+    };
+  }();
+
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     warmUpEditEntityRecord();
     setTimeout(function () {
@@ -583,7 +632,8 @@ function AiWriter() {
     resultLoading: resultLoading
   }), /*#__PURE__*/React.createElement(_history__WEBPACK_IMPORTED_MODULE_4__["default"], {
     historyItems: historyItems,
-    historyLoading: historyLoading
+    historyLoading: historyLoading,
+    clearHistory: clearHistory
   }));
 }
 

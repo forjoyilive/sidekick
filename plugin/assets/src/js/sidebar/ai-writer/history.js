@@ -1,5 +1,5 @@
 import { useState, useEffect } from '@wordpress/element';
-import { Spinner, PanelBody } from '@wordpress/components';
+import { Spinner, PanelBody, Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -8,8 +8,13 @@ import { __ } from '@wordpress/i18n';
  * @param  root0.update
  * @param  root0.historyItems
  * @param  root0.historyLoading
+ * @param  root0.clearHistory
  */
-export default function History({ historyItems, historyLoading }) {
+export default function History({
+	historyItems,
+	historyLoading,
+	clearHistory,
+}) {
 	const [history, setHistory] = useState([]);
 
 	const populateHistory = async () => {
@@ -42,11 +47,18 @@ export default function History({ historyItems, historyLoading }) {
 	return (
 		<PanelBody
 			title={__('History', 'fj-sidekick')}
-			intialOpen={false}
+			initialOpen={false}
 			className="fj-sidekick-aiwriter-history"
 		>
 			{historyLoading && <Spinner />}
-			{!historyLoading && history}
+			{!historyLoading && (
+				<>
+					{history}
+					<Button isPrimary onClick={clearHistory}>
+						{__('Clear History', 'fj-sidekick')}
+					</Button>
+				</>
+			)}
 		</PanelBody>
 	);
 }

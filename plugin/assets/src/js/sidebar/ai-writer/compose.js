@@ -33,6 +33,7 @@ export default function Compose({
 		const lastIndex = historyItems.length - 1;
 		const lastItem = historyItems[lastIndex];
 
+		// If history was cleared, don't delete what's currently there
 		if (lastItem) {
 			setPrompt(lastItem.prompt);
 			setResult(lastItem.result);
@@ -50,7 +51,7 @@ export default function Compose({
 				title={__('Compose', 'fj-sidekick')}
 				icon="welcome-write-blog"
 				className="fj-sidekick-aiwriter-compose"
-				intialOpen={true}
+				initialOpen={true}
 			>
 				{historyLoading && <Spinner />}
 				{!historyLoading && (

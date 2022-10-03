@@ -1,6 +1,7 @@
 /*!*****************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./plugin/assets/src/sass/editor.scss ***!
   \*****************************************************************************************************************************/
+/* Reverse Sidekick icon when active */
 .components-button.is-pressed #path24 {
   fill: #fff !important; }
 
@@ -16,6 +17,8 @@
   margin-bottom: 1em; }
   .fj-sidekick-sidebar .fj-sidekick-history-item .fj-sidekick-history-item-prompt {
     font-weight: 700; }
+  .fj-sidekick-sidebar .fj-sidekick-history-item .fj-sidekick-history-item-result {
+    white-space: pre-wrap; }
 
 
 /*# sourceMappingURL=editor.css.map*/

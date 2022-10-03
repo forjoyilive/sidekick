@@ -42,17 +42,18 @@ export default function AiWriter() {
 		setHistoryLoading(true);
 		const currentUser = await getCurrentUser();
 
-		if (0 < historyItems.length && currentUser.meta?.fj_sidekick_history) {
-			// getCurrentUser() caches its data, so we have to use this, which will be current
-			const updatedUserRecord = await getEntityRecord(
-				'root',
-				'user',
-				currentUser.id
-			);
+		const updatedUserRecord = await getEntityRecord(
+			'root',
+			'user',
+			currentUser.id
+		);
 
+		if (updatedUserRecord) {
+			// On panel re-open and history refresh
 			setHistoryItems(updatedUserRecord.meta?.fj_sidekick_history?.items);
 			setHistoryLoading(false);
 		} else {
+			// On page load
 			const unsubscribe = subscribe(() => {
 				const isResolvingCurrentUser = isResolving(
 					'core',
@@ -124,6 +125,32 @@ export default function AiWriter() {
 		addHistoryItem(prompt, newResult, length);
 	};
 
+	const clearHistory = async () => {
+		const currentUser = await getCurrentUser();
+		const meta = (currentUser && currentUser.meta) || [];
+		const history = (meta && meta.fj_sidekick_history) || null;
+		const newItems = [];
+
+		while (numberOfHistoryItems < newItems.length) {
+			newItems.shift();
+		}
+
+		const newMeta = {
+			...meta,
+			fj_sidekick_history: {
+				...history,
+				items: newItems,
+			},
+		};
+
+		await editEntityRecord('root', 'user', currentUser.id, {
+			meta: newMeta,
+		});
+		await saveEditedEntityRecord('root', 'user', currentUser.id);
+
+		getHistory();
+	};
+
 	useEffect(() => {
 		warmUpEditEntityRecord();
 		setTimeout(() => {
@@ -142,6 +169,7 @@ export default function AiWriter() {
 			<History
 				historyItems={historyItems}
 				historyLoading={historyLoading}
+				clearHistory={clearHistory}
 			/>
 		</>
 	);

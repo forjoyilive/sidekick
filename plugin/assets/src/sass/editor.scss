@@ -1,4 +1,4 @@
-// Reverse Sidekick icon when active
+/* Reverse Sidekick icon when active */
 .components-button.is-pressed #path24 {
 	fill: #fff !important;
 }
@@ -21,6 +21,10 @@
 
 		.fj-sidekick-history-item-prompt {
 			font-weight: 700;
+		}
+
+		.fj-sidekick-history-item-result {
+			white-space: pre-wrap;
 		}
 	}
 
