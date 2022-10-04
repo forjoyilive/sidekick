@@ -30,14 +30,16 @@ export default function Compose({
 	const [length, setLength] = useState(150);
 
 	const restoreStateFromHistory = () => {
-		const lastIndex = historyItems.length - 1;
-		const lastItem = historyItems[lastIndex];
+		if (historyItems && 0 < historyItems.length) {
+			const lastIndex = historyItems.length - 1;
+			const lastItem = historyItems[lastIndex];
 
-		// If history was cleared, don't delete what's currently there
-		if (lastItem) {
-			setPrompt(lastItem.prompt);
-			setResult(lastItem.result);
-			setLength(lastItem.length);
+			// If history was cleared, don't delete what's currently there
+			if (lastItem) {
+				setPrompt(lastItem.prompt);
+				setResult(lastItem.result);
+				setLength(lastItem.length);
+			}
 		}
 	};
 

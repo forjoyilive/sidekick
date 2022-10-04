@@ -10,16 +10,12 @@ import History from './history';
  */
 export default function AiWriter() {
 	const [historyItems, setHistoryItems] = useState([]);
-	const [loadingResult, setloadingResult] = useState(false);
-	const [loadingHistory, setloadingHistory] = useState(true);
+	const [loadingResult, setLoadingResult] = useState(false);
+	const [loadingHistory, setLoadingHistory] = useState(true);
 
 	const apiKey = fjSidekick.openaiApiKey; // eslint-disable-line no-undef
 	const apiURL = 'https://api.openai.com/v1/completions';
 	const numberOfHistoryItems = 10;
-
-	const isResolving = useSelect((select) => {
-		return select('core/data').isResolving;
-	}, []);
 
 	const getCurrentUser = useSelect((select) => {
 		return select('core').getCurrentUser;
@@ -33,13 +29,16 @@ export default function AiWriter() {
 
 	// This prevents editEntityRecord from failing with an "undefined" error on its first call
 	const warmUpEditEntityRecord = async () => {
-		await getEntityRecord('root', 'user', 1, {});
-		await editEntityRecord('root', 'user', 1, {});
-		await saveEditedEntityRecord('root', 'user', 1);
+		const currentUser = await getCurrentUser();
+		if (getCurrentUser) {
+			await getEntityRecord('root', 'user', currentUser.id, {});
+			await editEntityRecord('root', 'user', currentUser.id, {});
+			await saveEditedEntityRecord('root', 'user', currentUser.id);
+		}
 	};
 
 	const getHistory = async () => {
-		setloadingHistory(true);
+		setLoadingHistory(true);
 		const currentUser = await getCurrentUser();
 
 		const updatedUserRecord = await getEntityRecord(
@@ -50,29 +49,21 @@ export default function AiWriter() {
 
 		if (updatedUserRecord) {
 			// On panel re-open and history refresh
-			setHistoryItems(updatedUserRecord.meta?.fj_sidekick_history?.items);
-			setloadingHistory(false);
+			setHistoryItems(
+				updatedUserRecord.meta?.fj_sidekick_history?.items || []
+			);
+			setLoadingHistory(false);
 		} else {
 			// On page load
-			const unsubscribe = subscribe(() => {
-				const isResolvingCurrentUser = isResolving(
-					'core',
-					'getCurrentUser'
-				);
-				if (!isResolvingCurrentUser) {
-					unsubscribe();
-
-					setHistoryItems(currentUser.meta.fj_sidekick_history.items);
-					setloadingHistory(false);
-				}
-			});
+			setHistoryItems(currentUser.meta.fj_sidekick_history.items || []);
+			setLoadingHistory(false);
 		}
 	};
 
 	const addHistoryItem = async (prompt, newResult, length) => {
 		const currentUser = await getCurrentUser();
 		const meta = (currentUser && currentUser.meta) || [];
-		const history = (meta && meta.fj_sidekick_history) || null;
+		const history = (meta && meta.fj_sidekick_history) || [];
 		const items = (history && history.items) || [];
 		const newItems = [...items, { prompt, result: newResult, length }];
 
@@ -97,7 +88,7 @@ export default function AiWriter() {
 	};
 
 	const updateHistory = async (prompt, length) => {
-		setloadingResult(true);
+		setLoadingResult(true);
 
 		const requestOptions = {
 			method: 'POST',
@@ -120,7 +111,7 @@ export default function AiWriter() {
 				? data.choices[0].text.trim()
 				: __('No result', 'fj-sidekick');
 
-		setloadingResult(false);
+		setLoadingResult(false);
 
 		addHistoryItem(prompt, newResult, length);
 	};
@@ -148,10 +139,12 @@ export default function AiWriter() {
 	};
 
 	useEffect(() => {
-		warmUpEditEntityRecord();
+		setTimeout(() => {
+			warmUpEditEntityRecord();
+		}, 0);
 		setTimeout(() => {
 			getHistory();
-		}, 0);
+		}, 1);
 	}, []);
 
 	return (

@@ -15,10 +15,14 @@ export default function History({
 	loadingHistory,
 	clearHistory,
 }) {
-	const [history, setHistory] = useState([]);
+	const [history, setHistory] = useState('');
 
 	const populateHistory = async () => {
-		displayHistory(historyItems.slice().reverse()); // Avoid mutating original array
+		if (historyItems && 0 < historyItems.length) {
+			displayHistory(historyItems.slice().reverse()); // Avoid mutating original array
+		} else {
+			setHistory('');
+		}
 	};
 
 	const displayHistory = (items) => {
@@ -53,7 +57,10 @@ export default function History({
 			{loadingHistory && <Spinner />}
 			{!loadingHistory && (
 				<>
-					{history}
+					{!!history && history}
+					{!history && (
+						<p>{__('No history available.', 'fj-sidekick')}</p>
+					)}
 					<Button isPrimary onClick={clearHistory}>
 						{__('Clear History', 'fj-sidekick')}
 					</Button>
