@@ -1,5 +1,5 @@
 import { useState, useEffect } from '@wordpress/element';
-import { useSelect, useDispatch, subscribe } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 
 import Compose from './compose';
@@ -13,8 +13,7 @@ export default function AiWriter() {
 	const [loadingResult, setLoadingResult] = useState(false);
 	const [loadingHistory, setLoadingHistory] = useState(true);
 
-	const apiKey = fjSidekick.openaiApiKey; // eslint-disable-line no-undef
-	const apiURL = 'https://api.openai.com/v1/completions';
+	const apiURL = fjSidekick.siteURL + '/wp-json/fj-sidekick/v1/openai'; // eslint-disable-line no-undef
 	const numberOfHistoryItems = 10;
 
 	const getCurrentUser = useSelect((select) => {
@@ -94,22 +93,19 @@ export default function AiWriter() {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: 'Bearer ' + apiKey,
 			},
 			body: JSON.stringify({
-				model: 'text-davinci-002',
+				key: fjSidekick.requestKey, // eslint-disable-line no-undef
 				prompt,
-				temperature: 0,
-				max_tokens: length,
+				length,
 			}),
 		};
 
 		const response = await fetch(apiURL, requestOptions);
 		const data = await response.json();
-		const newResult =
-			data && data.choices && data.choices[0]
-				? data.choices[0].text.trim()
-				: __('No result', 'fj-sidekick');
+		const newResult = data.result
+			? data.result.trim()
+			: __('No result', 'fj-sidekick');
 
 		setLoadingResult(false);
 

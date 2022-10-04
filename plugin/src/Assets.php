@@ -75,7 +75,8 @@ class Assets
 				true
 			);
 
-			$fjSidekickVars = 'var fjSidekick = fjSidekick || {}; fjSidekick.openaiApiKey = "' . get_option('fj_sidekick_openai_api_key') . '";';
+
+			$fjSidekickVars = 'var fjSidekick = fjSidekick || {}; fjSidekick.requestKey="' . Modules\AIWriter::getRequestKey() . '"; fjSidekick.siteURL="' . get_site_url() . '";';
 
 			wp_add_inline_script('fj-sidekick-sidebar-js', $fjSidekickVars, 'before');
 		}

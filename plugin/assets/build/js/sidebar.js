@@ -373,9 +373,8 @@ function AiWriter() {
       loadingHistory = _useState6[0],
       setLoadingHistory = _useState6[1];
 
-  var apiKey = fjSidekick.openaiApiKey; // eslint-disable-line no-undef
+  var apiURL = fjSidekick.siteURL + '/wp-json/fj-sidekick/v1/openai'; // eslint-disable-line no-undef
 
-  var apiURL = 'https://api.openai.com/v1/completions';
   var numberOfHistoryItems = 10;
   var getCurrentUser = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.useSelect)(function (select) {
     return select('core').getCurrentUser;
@@ -540,14 +539,13 @@ function AiWriter() {
               requestOptions = {
                 method: 'POST',
                 headers: {
-                  'Content-Type': 'application/json',
-                  Authorization: 'Bearer ' + apiKey
+                  'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                  model: 'text-davinci-002',
+                  key: fjSidekick.requestKey,
+                  // eslint-disable-line no-undef
                   prompt: prompt,
-                  temperature: 0,
-                  max_tokens: length
+                  length: length
                 })
               };
               _context4.next = 4;
@@ -560,7 +558,7 @@ function AiWriter() {
 
             case 7:
               data = _context4.sent;
-              newResult = data && data.choices && data.choices[0] ? data.choices[0].text.trim() : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('No result', 'fj-sidekick');
+              newResult = data.result ? data.result.trim() : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('No result', 'fj-sidekick');
               setLoadingResult(false);
               addHistoryItem(prompt, newResult, length);
 
