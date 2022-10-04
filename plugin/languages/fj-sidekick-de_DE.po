@@ -1,0 +1,79 @@
+# Copyright (C) 2022 Nabha Cosley
+# This file is distributed under the GPL v3 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Sidekick 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/plugin\n"
+"POT-Creation-Date: 2022-10-03T23:04:52+00:00\n"
+"PO-Revision-Date: 2022-10-03 16:07-0700\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.1.1\n"
+"X-Domain: fj-sidekick\n"
+
+#. Plugin Name of the plugin
+#: assets/build/js/sidebar.js:844 assets/build/js/sidebar.js:846
+#: assets/build/js/sidebar.js:513 assets/build/js/sidebar.js:517
+msgid "Sidekick"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://github.com/imranhsayed/sidekick/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Helping website admins get more done, more easily."
+msgstr ""
+
+#. Author of the plugin
+msgid "Nabha Cosley"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://forjoyi.live/"
+msgstr ""
+
+#: assets/build/js/sidebar.js:136 assets/build/js/sidebar.js:99
+msgid "Compose"
+msgstr ""
+
+#: assets/build/js/sidebar.js:142 assets/build/js/sidebar.js:109
+msgid "Prompt"
+msgstr "Eingabeaufforderung"
+
+#: assets/build/js/sidebar.js:147 assets/build/js/sidebar.js:114
+msgid "Length"
+msgstr "Länge"
+
+#: assets/build/js/sidebar.js:163 assets/build/js/sidebar.js:127
+msgid "Get Content"
+msgstr "Inhalt erhalten"
+
+#: assets/build/js/sidebar.js:165 assets/build/js/sidebar.js:137
+msgid "Result"
+msgstr "Resultat"
+
+#: assets/build/js/sidebar.js:179 assets/build/js/sidebar.js:150
+msgid "Copy to Clipboard"
+msgstr "In Zwischenablage kopieren"
+
+#: assets/build/js/sidebar.js:282 assets/build/js/sidebar.js:209
+msgid "History"
+msgstr "Historie"
+
+#: assets/build/js/sidebar.js:288 assets/build/js/sidebar.js:218
+msgid "Clear History"
+msgstr "Historie leeren"
+
+#: assets/build/js/sidebar.js:555 assets/build/js/sidebar.js:346
+msgid "No result"
+msgstr ""
+
+#: assets/build/js/sidebar.js:854 assets/build/js/sidebar.js:527
+msgid "AI Writer"
+msgstr ""

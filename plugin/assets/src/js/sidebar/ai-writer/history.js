@@ -7,12 +7,12 @@ import { __ } from '@wordpress/i18n';
  * @param  root0
  * @param  root0.update
  * @param  root0.historyItems
- * @param  root0.historyLoading
+ * @param  root0.loadingHistory
  * @param  root0.clearHistory
  */
 export default function History({
 	historyItems,
-	historyLoading,
+	loadingHistory,
 	clearHistory,
 }) {
 	const [history, setHistory] = useState([]);
@@ -50,8 +50,8 @@ export default function History({
 			initialOpen={false}
 			className="fj-sidekick-aiwriter-history"
 		>
-			{historyLoading && <Spinner />}
-			{!historyLoading && (
+			{loadingHistory && <Spinner />}
+			{!loadingHistory && (
 				<>
 					{history}
 					<Button isPrimary onClick={clearHistory}>

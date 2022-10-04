@@ -15,15 +15,15 @@ import {
  * @param  props
  * @param  props.refreshHistory
  * @param  props.historyItems
- * @param  props.historyLoading
+ * @param  props.loadingHistory
  * @param  props.updateHistory
- * @param  props.resultLoading
+ * @param  props.loadingResult
  */
 export default function Compose({
 	historyItems,
-	historyLoading,
+	loadingHistory,
 	updateHistory,
-	resultLoading,
+	loadingResult,
 }) {
 	const [prompt, setPrompt] = useState('');
 	const [result, setResult] = useState('');
@@ -53,8 +53,8 @@ export default function Compose({
 				className="fj-sidekick-aiwriter-compose"
 				initialOpen={true}
 			>
-				{historyLoading && <Spinner />}
-				{!historyLoading && (
+				{loadingHistory && <Spinner />}
+				{!loadingHistory && (
 					<div>
 						<TextareaControl
 							value={prompt}
@@ -74,14 +74,14 @@ export default function Compose({
 							isPrimary
 							onClick={() => updateHistory(prompt, length)}
 							style={{ marginBottom: 20 }}
-							disabled={resultLoading}
+							disabled={loadingResult}
 						>
 							{__('Get Content', 'fj-sidekick')}
 						</Button>
 
-						{resultLoading && <Spinner />}
+						{loadingResult && <Spinner />}
 
-						{result && !resultLoading && (
+						{result && !loadingResult && (
 							<>
 								<Divider />
 								<TextareaControl

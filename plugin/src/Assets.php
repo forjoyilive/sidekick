@@ -18,6 +18,7 @@ class Assets
 	{
 		add_action('enqueue_block_assets', [$this, 'enqueue_editor_assets']);
 		add_action('admin_enqueue_scripts', [$this, 'enqueue_settings_assets']);
+		add_action('admin_enqueue_scripts', [$this, 'set_translations'], 20, 3);
 	}
 
 	public function enqueue_settings_assets()
@@ -50,6 +51,8 @@ class Assets
 		$editor_asset    = $asset_config['js/editor.js'];
 		$js_dependencies = (!empty($editor_asset['dependencies'])) ? $editor_asset['dependencies'] : [];
 		$version         = (!empty($editor_asset['version'])) ? $editor_asset['version'] : filemtime($asset_config_file);
+
+		$js_dependencies[] = 'wp-i18n';
 
 		// Theme Gutenberg blocks JS.
 		if (is_admin()) {
@@ -90,5 +93,11 @@ class Assets
 			filemtime(FJ_SIDEKICK_BUILD_PATH . '/css/editor.css'),
 			'all'
 		);
+	}
+
+	public function set_translations()
+	{
+		load_plugin_textdomain('fj-sidekick', false, FJ_SIDEKICK_PLUGIN_PATH . '/languages');
+		wp_set_script_translations('fj-sidekick-sidebar-js', FJ_SIDEKICK_TEXTDOMAIN, FJ_SIDEKICK_PLUGIN_PATH . '/languages');
 	}
 }

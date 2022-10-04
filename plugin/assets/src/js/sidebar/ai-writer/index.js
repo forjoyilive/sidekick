@@ -10,8 +10,8 @@ import History from './history';
  */
 export default function AiWriter() {
 	const [historyItems, setHistoryItems] = useState([]);
-	const [resultLoading, setResultLoading] = useState(false);
-	const [historyLoading, setHistoryLoading] = useState(true);
+	const [loadingResult, setloadingResult] = useState(false);
+	const [loadingHistory, setloadingHistory] = useState(true);
 
 	const apiKey = fjSidekick.openaiApiKey; // eslint-disable-line no-undef
 	const apiURL = 'https://api.openai.com/v1/completions';
@@ -39,7 +39,7 @@ export default function AiWriter() {
 	};
 
 	const getHistory = async () => {
-		setHistoryLoading(true);
+		setloadingHistory(true);
 		const currentUser = await getCurrentUser();
 
 		const updatedUserRecord = await getEntityRecord(
@@ -51,7 +51,7 @@ export default function AiWriter() {
 		if (updatedUserRecord) {
 			// On panel re-open and history refresh
 			setHistoryItems(updatedUserRecord.meta?.fj_sidekick_history?.items);
-			setHistoryLoading(false);
+			setloadingHistory(false);
 		} else {
 			// On page load
 			const unsubscribe = subscribe(() => {
@@ -63,7 +63,7 @@ export default function AiWriter() {
 					unsubscribe();
 
 					setHistoryItems(currentUser.meta.fj_sidekick_history.items);
-					setHistoryLoading(false);
+					setloadingHistory(false);
 				}
 			});
 		}
@@ -97,7 +97,7 @@ export default function AiWriter() {
 	};
 
 	const updateHistory = async (prompt, length) => {
-		setResultLoading(true);
+		setloadingResult(true);
 
 		const requestOptions = {
 			method: 'POST',
@@ -120,7 +120,7 @@ export default function AiWriter() {
 				? data.choices[0].text.trim()
 				: __('No result', 'fj-sidekick');
 
-		setResultLoading(false);
+		setloadingResult(false);
 
 		addHistoryItem(prompt, newResult, length);
 	};
@@ -130,10 +130,6 @@ export default function AiWriter() {
 		const meta = (currentUser && currentUser.meta) || [];
 		const history = (meta && meta.fj_sidekick_history) || null;
 		const newItems = [];
-
-		while (numberOfHistoryItems < newItems.length) {
-			newItems.shift();
-		}
 
 		const newMeta = {
 			...meta,
@@ -162,13 +158,13 @@ export default function AiWriter() {
 		<>
 			<Compose
 				historyItems={historyItems}
-				historyLoading={historyLoading}
+				loadingHistory={loadingHistory}
+				loadingResult={loadingResult}
 				updateHistory={updateHistory}
-				resultLoading={resultLoading}
 			/>
 			<History
 				historyItems={historyItems}
-				historyLoading={historyLoading}
+				loadingHistory={loadingHistory}
 				clearHistory={clearHistory}
 			/>
 		</>
