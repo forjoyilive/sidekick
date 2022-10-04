@@ -27,10 +27,10 @@ class AIWriter
     public function registerEndpoint()
     {
         add_action('rest_api_init', function () {
-            register_rest_route('fj-sidekick/v1', '/openai/', array(
-                'methods' => 'POST',
+            register_rest_route('fj-sidekick/v1', '/ai-writer/', array(
+                'methods' => \WP_REST_Server::CREATABLE,
                 'callback' => array($this, 'getOpenAIResult'),
-                'permission_callback' => '__return_true',
+                'permission_callback' => array($this, 'getOpenAIResultPermissionsCheck'),
             ));
         });
     }
@@ -76,7 +76,16 @@ class AIWriter
 
         $data['result'] = $textResult;
 
-        return new \WP_REST_Response($data, 200);
+        return rest_ensure_response($data);
+    }
+
+    public function getOpenAIResultPermissionsCheck()
+    {
+        if (!current_user_can('edit_posts')) {
+            return new \WP_Error('rest_forbidden', esc_html__('Sorry, but this API is restricted to users with the ability to edit posts.', FJ_SIDEKICK_TEXTDOMAIN), array('status' => rest_authorization_required_code()));
+        }
+
+        return true;
     }
 
     public static function getRequestKey()

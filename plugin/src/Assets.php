@@ -19,6 +19,7 @@ class Assets
 		add_action('enqueue_block_assets', [$this, 'enqueue_editor_assets']);
 		add_action('admin_enqueue_scripts', [$this, 'enqueue_settings_assets']);
 		add_action('admin_enqueue_scripts', [$this, 'set_translations'], 20, 3);
+		add_action('admin_enqueue_scripts', [$this, 'send_data_to_javascript']);
 	}
 
 	public function enqueue_settings_assets()
@@ -74,11 +75,6 @@ class Assets
 				$version,
 				true
 			);
-
-
-			$fjSidekickVars = 'var fjSidekick = fjSidekick || {}; fjSidekick.requestKey="' . Modules\AIWriter::getRequestKey() . '"; fjSidekick.siteURL="' . get_site_url() . '";';
-
-			wp_add_inline_script('fj-sidekick-sidebar-js', $fjSidekickVars, 'before');
 		}
 
 		// Theme Gutenberg blocks CSS.
@@ -100,5 +96,19 @@ class Assets
 	{
 		load_plugin_textdomain('fj-sidekick', false, FJ_SIDEKICK_PLUGIN_PATH . '/languages');
 		wp_set_script_translations('fj-sidekick-sidebar-js', FJ_SIDEKICK_TEXTDOMAIN, FJ_SIDEKICK_PLUGIN_PATH . '/languages');
+	}
+
+	public function send_data_to_javascript()
+	{
+		ob_start();
+?>
+		var fjSidekick = fjSidekick || {};
+		fjSidekick.requestKey="<?php echo Modules\AIWriter::getRequestKey() ?>";
+		fjSidekick.aiWriterRestURL="<?php echo rest_url('fj-sidekick/v1/ai-writer') ?>";
+		fjSidekick.aiWriterRestNonce="<?php echo wp_create_nonce('wp_rest') ?>";
+<?php
+		$fjSidekickVars = ob_get_clean();
+
+		wp_add_inline_script('fj-sidekick-sidebar-js', $fjSidekickVars, 'before');
 	}
 }

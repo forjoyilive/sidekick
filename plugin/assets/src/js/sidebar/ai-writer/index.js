@@ -13,7 +13,7 @@ export default function AiWriter() {
 	const [loadingResult, setLoadingResult] = useState(false);
 	const [loadingHistory, setLoadingHistory] = useState(true);
 
-	const apiURL = fjSidekick.siteURL + '/wp-json/fj-sidekick/v1/openai'; // eslint-disable-line no-undef
+	const apiURL = fjSidekick.aiWriterRestURL; // eslint-disable-line no-undef
 	const numberOfHistoryItems = 10;
 
 	const getCurrentUser = useSelect((select) => {
@@ -93,6 +93,7 @@ export default function AiWriter() {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
+				'X-WP-Nonce': fjSidekick.aiWriterRestNonce, // eslint-disable-line no-undef
 			},
 			body: JSON.stringify({
 				key: fjSidekick.requestKey, // eslint-disable-line no-undef

@@ -373,7 +373,7 @@ function AiWriter() {
       loadingHistory = _useState6[0],
       setLoadingHistory = _useState6[1];
 
-  var apiURL = fjSidekick.siteURL + '/wp-json/fj-sidekick/v1/openai'; // eslint-disable-line no-undef
+  var apiURL = fjSidekick.aiWriterRestURL; // eslint-disable-line no-undef
 
   var numberOfHistoryItems = 10;
   var getCurrentUser = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.useSelect)(function (select) {
@@ -539,7 +539,9 @@ function AiWriter() {
               requestOptions = {
                 method: 'POST',
                 headers: {
-                  'Content-Type': 'application/json'
+                  'Content-Type': 'application/json',
+                  'X-WP-Nonce': fjSidekick.aiWriterRestNonce // eslint-disable-line no-undef
+
                 },
                 body: JSON.stringify({
                   key: fjSidekick.requestKey,
