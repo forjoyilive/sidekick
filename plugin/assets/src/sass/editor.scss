@@ -28,4 +28,22 @@
 		}
 	}
 
+	/* Errors and notices */
+	.components-tab-panel__tab-content > .components-with-notices-ui {
+
+		.components-notice {
+			margin-left: 0;
+			margin-right: 0;
+			margin-bottom: 0;
+
+			&.is-dismissible {
+				padding-right: 6px;
+			}
+
+			.components-notice__content {
+				line-height: 1.5;
+			}
+		}
+	}
+
 }

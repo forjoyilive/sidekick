@@ -48,11 +48,11 @@ class AIWriter
         $apiKey = $this->getOpenAIKey();
 
         if (empty($prompt)) {
-            return new \WP_Error('fj_sidekick_openai_prompt_empty', __('Prompt is missing', FJ_SIDEKICK_TEXTDOMAIN), array('status' => 400));
+            return new \WP_Error('fj_sidekick_openai_prompt_empty', __('Please fill out a prompt and try again.', FJ_SIDEKICK_TEXTDOMAIN), array('status' => 400));
         }
 
         if (self::$requestKey !== $key) {
-            return new \WP_Error('fj_sidekick_openai_key_invalid', __('Invalid key', FJ_SIDEKICK_TEXTDOMAIN), array('status' => 403));
+            return new \WP_Error('fj_sidekick_openai_key_invalid', __('Invalid request key.', FJ_SIDEKICK_TEXTDOMAIN), array('status' => 403));
         }
 
         $response = wp_remote_request('https://api.openai.com/v1/completions', array(
@@ -74,9 +74,14 @@ class AIWriter
 
         $textResult = $results['choices'][0]['text'];
 
-        $data['result'] = $textResult;
-
-        return rest_ensure_response($data);
+        if ($textResult) {
+            $data['result'] = $textResult;
+            return rest_ensure_response($data);
+        } else if ($results['error']) {
+            return new \WP_Error('fj_sidekick_openai_error', $results['error']['message'], array('status' => 500));
+        } else {
+            return new \WP_Error('fj_sidekick_openai_error', __('There was an error with the OpenAI API.', FJ_SIDEKICK_TEXTDOMAIN), array('status' => 500));
+        }
     }
 
     public function getOpenAIResultPermissionsCheck()

@@ -303,9 +303,6 @@ function History(_ref) {
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ AiWriter; }
-/* harmony export */ });
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
@@ -314,6 +311,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _compose__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./compose */ "./plugin/assets/src/js/sidebar/ai-writer/compose.js");
 /* harmony import */ var _history__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./history */ "./plugin/assets/src/js/sidebar/ai-writer/history.js");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__);
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
@@ -353,11 +352,18 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 /**
  *
+ * @param  root0
+ * @param  root0.noticeOperations
+ * @param  root0.noticeUI
  */
 
-function AiWriter() {
+function AiWriter(_ref) {
+  var noticeOperations = _ref.noticeOperations,
+      noticeUI = _ref.noticeUI;
+
   var _useState = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState2 = _slicedToArray(_useState, 2),
       historyItems = _useState2[0],
@@ -389,7 +395,7 @@ function AiWriter() {
 
 
   var warmUpEditEntityRecord = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
       var currentUser;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) {
@@ -426,12 +432,12 @@ function AiWriter() {
     }));
 
     return function warmUpEditEntityRecord() {
-      return _ref.apply(this, arguments);
+      return _ref2.apply(this, arguments);
     };
   }();
 
   var getHistory = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
       var currentUser, updatedUserRecord, _updatedUserRecord$me, _updatedUserRecord$me2;
 
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
@@ -469,12 +475,12 @@ function AiWriter() {
     }));
 
     return function getHistory() {
-      return _ref2.apply(this, arguments);
+      return _ref3.apply(this, arguments);
     };
   }();
 
   var addHistoryItem = /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(prompt, newResult, length) {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(prompt, newResult, length) {
       var currentUser, meta, history, items, newItems, newMeta;
       return _regeneratorRuntime().wrap(function _callee3$(_context3) {
         while (1) {
@@ -524,12 +530,12 @@ function AiWriter() {
     }));
 
     return function addHistoryItem(_x, _x2, _x3) {
-      return _ref3.apply(this, arguments);
+      return _ref4.apply(this, arguments);
     };
   }();
 
   var updateHistory = /*#__PURE__*/function () {
-    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(prompt, length) {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(prompt, length) {
       var requestOptions, response, data, newResult;
       return _regeneratorRuntime().wrap(function _callee4$(_context4) {
         while (1) {
@@ -560,11 +566,18 @@ function AiWriter() {
 
             case 7:
               data = _context4.sent;
-              newResult = data.result ? data.result.trim() : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('No result', 'fj-sidekick');
-              setLoadingResult(false);
-              addHistoryItem(prompt, newResult, length);
 
-            case 11:
+              if (data && data.result) {
+                newResult = data.result.trim();
+                setLoadingResult(false);
+                addHistoryItem(prompt, newResult, length);
+              } else {
+                noticeOperations.removeAllNotices();
+                noticeOperations.createErrorNotice(data.message || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Something went wrong. Please try again.', 'fj-sidekick'));
+                setLoadingResult(false);
+              }
+
+            case 9:
             case "end":
               return _context4.stop();
           }
@@ -573,12 +586,12 @@ function AiWriter() {
     }));
 
     return function updateHistory(_x4, _x5) {
-      return _ref4.apply(this, arguments);
+      return _ref5.apply(this, arguments);
     };
   }();
 
   var clearHistory = /*#__PURE__*/function () {
-    var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+    var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
       var currentUser, meta, history, newItems, newMeta;
       return _regeneratorRuntime().wrap(function _callee5$(_context5) {
         while (1) {
@@ -618,7 +631,7 @@ function AiWriter() {
     }));
 
     return function clearHistory() {
-      return _ref5.apply(this, arguments);
+      return _ref6.apply(this, arguments);
     };
   }();
 
@@ -630,7 +643,7 @@ function AiWriter() {
       getHistory();
     }, 1);
   }, []);
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_compose__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, noticeUI, /*#__PURE__*/React.createElement(_compose__WEBPACK_IMPORTED_MODULE_3__["default"], {
     historyItems: historyItems,
     loadingHistory: loadingHistory,
     loadingResult: loadingResult,
@@ -641,6 +654,8 @@ function AiWriter() {
     clearHistory: clearHistory
   }));
 }
+
+/* harmony default export */ __webpack_exports__["default"] = ((0,_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.withNotices)(AiWriter));
 
 /***/ }),
 

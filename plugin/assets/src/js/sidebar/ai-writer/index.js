@@ -4,11 +4,18 @@ import { __ } from '@wordpress/i18n';
 
 import Compose from './compose';
 import History from './history';
+import {
+	withNotices,
+	__experimentalDivider as Divider,
+} from '@wordpress/components';
 
 /**
  *
+ * @param  root0
+ * @param  root0.noticeOperations
+ * @param  root0.noticeUI
  */
-export default function AiWriter() {
+function AiWriter({ noticeOperations, noticeUI }) {
 	const [historyItems, setHistoryItems] = useState([]);
 	const [loadingResult, setLoadingResult] = useState(false);
 	const [loadingHistory, setLoadingHistory] = useState(true);
@@ -104,13 +111,19 @@ export default function AiWriter() {
 
 		const response = await fetch(apiURL, requestOptions);
 		const data = await response.json();
-		const newResult = data.result
-			? data.result.trim()
-			: __('No result', 'fj-sidekick');
 
-		setLoadingResult(false);
-
-		addHistoryItem(prompt, newResult, length);
+		if (data && data.result) {
+			const newResult = data.result.trim();
+			setLoadingResult(false);
+			addHistoryItem(prompt, newResult, length);
+		} else {
+			noticeOperations.removeAllNotices();
+			noticeOperations.createErrorNotice(
+				data.message ||
+					__('Something went wrong. Please try again.', 'fj-sidekick')
+			);
+			setLoadingResult(false);
+		}
 	};
 
 	const clearHistory = async () => {
@@ -146,6 +159,7 @@ export default function AiWriter() {
 
 	return (
 		<>
+			{noticeUI}
 			<Compose
 				historyItems={historyItems}
 				loadingHistory={loadingHistory}
@@ -160,3 +174,5 @@ export default function AiWriter() {
 		</>
 	);
 }
+
+export default withNotices(AiWriter);
