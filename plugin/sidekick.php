@@ -9,16 +9,16 @@
  * @wordpress-plugin
  * 
  * Plugin Name:       Sidekick
- * Plugin URI:        https://github.com/imranhsayed/sidekick/
- * Description:       Helping website admins get more done, more easily.
+ * Plugin URI:        https://github.com/forjoyilive/sidekick/
+ * Description:       Helping you get more done, more easily.
  * Version:           1.0.0
- * Requires at least: 5.2
+ * Requires at least: 6.0
  * Requires PHP:      7.2
  * Author:            Nabha Cosley
  * Author URI:        https://forjoyi.live/
  * License:           GPL v3 or later
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
- * Update URI:        https://github.com/imranhsayed/sidekick/
+ * Update URI:        https://github.com/forjoyilive/sidekick/
  * Text Domain:       fj-sidekick
  * Domain Path:       /languages
  */

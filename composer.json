@@ -10,7 +10,7 @@
 	"require": {
 		"php": ">=5.4.0"
 	},
-	"homepage": "https://github.com/imranhsayed/sidekick/",
+	"homepage": "https://github.com/forjoyilive/sidekick/",
 	"require-dev": {
 		"wp-coding-standards/wpcs": "^2.3",
 		"phpcompatibility/phpcompatibility-wp": "^2.1",

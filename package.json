@@ -1,7 +1,7 @@
 {
 	"name": "sidekick",
 	"version": "1.0.0",
-	"description": "Helping website admins get more done, more easily.",
+	"description": "Helping you get more done, more easily.",
 	"scripts": {
 		"prod": "cross-env NODE_ENV=production webpack --mode production --progress",
 		"dev": "cross-env NODE_ENV=development webpack --watch --mode development --progress",
@@ -14,7 +14,9 @@
 		"lint-css": "stylelint 'plugin/assets/src/sass/**/*.scss'",
 		"lint-css:fix": "npm run lint-css -- --fix",
 		"precommit": "npm run lint:php && npm run lint-css:fix && npm run lint:fix && npm run prod",
-		"cypress:open": "node_modules/.bin/cypress open"
+		"cypress:open": "node_modules/.bin/cypress open",
+		"i18n:makepot": "wp i18n make-pot ./plugin/ plugin/languages/fj-sidekick.pot --exclude='src'",
+		"i18n:makejson": "wp i18n make-json plugin/languages --no-purge"
 	},
 	"keywords": [
 		"wordpress",
