@@ -46,6 +46,7 @@ class AIWriter
         }
 
         $apiKey = $this->getOpenAIKey();
+        $apiURL = 'https://api.openai.com/v1/completions';
 
         if (empty($prompt)) {
             return new \WP_Error('fj_sidekick_openai_prompt_empty', __('Please fill out a prompt and try again.', FJ_SIDEKICK_TEXTDOMAIN), array('status' => 400));
@@ -55,7 +56,7 @@ class AIWriter
             return new \WP_Error('fj_sidekick_openai_key_invalid', __('Invalid request key.', FJ_SIDEKICK_TEXTDOMAIN), array('status' => 403));
         }
 
-        $response = wp_remote_request('https://api.openai.com/v1/completions', array(
+        $response = wp_remote_request($apiURL, array(
             'method' => 'POST',
             'headers' => array(
                 'Content-Type' => 'application/json',
@@ -79,8 +80,10 @@ class AIWriter
             return rest_ensure_response($data);
         } else if ($results['error']) {
             return new \WP_Error('fj_sidekick_openai_error', $results['error']['message'], array('status' => 500));
+        } else if ($response->errors) {
+            return new \WP_Error('fj_sidekick_openai_error', $response->errors['http_request_failed'][0], array('status' => 500));
         } else {
-            return new \WP_Error('fj_sidekick_openai_error', __('There was an error with the OpenAI API.', FJ_SIDEKICK_TEXTDOMAIN), array('status' => 500));
+            return new \WP_Error('fj_sidekick_openai_error', __('There was an unknown error with the OpenAI API.', FJ_SIDEKICK_TEXTDOMAIN), array('status' => 500));
         }
     }
 
