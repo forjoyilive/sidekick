@@ -1,5 +1,5 @@
 
-![Sidekick Logo](https://github.com/forjoyilive/sidekick/blob/0a909babb9324d8af275763837206b49834e2094/plugin/assets/src/image/s-logo-128.png?raw=true)
+![Sidekick Logo](https://github.com/forjoyilive/sidekick/blob/0a909babb9324d8af275763837206b49834e2094/plugin/assets/src/img/s-logo-128.png?raw=true)
 # Sidekick
 
 Helping you get more done, more easily.
