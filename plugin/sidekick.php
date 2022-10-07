@@ -22,7 +22,6 @@
  * Text Domain:       fj-sidekick
  * Domain Path:       /languages
  */
-
 define('FJ_SIDEKICK_VERSION', '1.0.0');
 
 require_once('vendor/autoload.php');

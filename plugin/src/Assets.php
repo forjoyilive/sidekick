@@ -104,7 +104,7 @@ class Assets
 ?>
 		var fjSidekick = fjSidekick || {};
 		fjSidekick.requestKey="<?php echo Modules\AIWriter::getRequestKey() ?>";
-		fjSidekick.aiWriterRestURL="<?php echo rest_url('fj-sidekick/v1/ai-writer') ?>";
+		fjSidekick.aiWriterRestURL="<?php echo rest_url('fj-sidekick/v1/ai-writer/') ?>";
 		fjSidekick.aiWriterRestNonce="<?php echo wp_create_nonce('wp_rest') ?>";
 <?php
 		$fjSidekickVars = ob_get_clean();
