@@ -1,3 +1,5 @@
+
+![Sidekick Logo](https://github.com/forjoyilive/sidekick/blob/0a909babb9324d8af275763837206b49834e2094/plugin/assets/src/image/s-logo-128.png?raw=true)
 # Sidekick
 
 Helping you get more done, more easily.
@@ -7,4 +9,4 @@ Sidekick is a tool to help you create content more quickly. It hooks into OpenAI
 
 Because it uses your own API key, costs are low, and you pay only for what you use.
 
-![Screenshot of the AI Writer in action](https://github.com/forjoyilive/sidekick/blob/0a909babb9324d8af275763837206b49834e2094/plugin/assets/screenshot-1.png?raw=true)
+<img src="https://github.com/forjoyilive/sidekick/blob/0a909babb9324d8af275763837206b49834e2094/plugin/assets/screenshot-1.png?raw=true" alt="Screenshot of the AI Writer in action" width="280"/>
