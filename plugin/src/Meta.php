@@ -22,6 +22,12 @@ class Meta
 			"type" => "object",
 			"single" => true,
 			"show_in_rest" => array(
+				'prepare_callback' => function ($value) {
+					if (is_user_logged_in()) {
+						return $value;
+					}
+					return '';
+				},
 				'schema' => array(
 					'type'  => 'object',
 					'properties' => array(
