@@ -67,7 +67,7 @@ export default function Compose({
 						<RangeControl
 							label={__('Length', 'fj-sidekick')}
 							min={10}
-							max={250}
+							max={500}
 							value={length}
 							onChange={(value) => setLength(value)}
 						/>

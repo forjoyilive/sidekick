@@ -148,7 +148,7 @@ function Compose(_ref) {
   }), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Length', 'fj-sidekick'),
     min: 10,
-    max: 250,
+    max: 500,
     value: length,
     onChange: function onChange(value) {
       return setLength(value);
