@@ -41,13 +41,19 @@ Because it uses your own API key, costs are low, and you pay only for what you u
 
 Yes, you'll need an account with an API key. You can [sign up for an account](https://openai.com/api/) here.
 
-= What about adding other features? Maybe other AI services? =
+= How can I report bugs? What about adding other features? =
 
-Feel free to [submit an issue on GitHub](https://github.com/forjoyilive/sidekickwp/issues) and make a request!
+Feel free to [submit an issue on GitHub](https://github.com/forjoyilive/sidekickwp/issues) and make a report or a request!
 
 = Where is my history stored? =
 
 It's in your user meta, stored in the database and hidden from public requests by non-users.
+
+== Troubleshooting ==
+
+= I just tried it and it didn't work. =
+
+If it was your first time trying it, and you didn't get an error, try reloading the page and trying a couple of more times. 
 
 == Screenshots ==
 
