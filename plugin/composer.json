@@ -1,5 +1,5 @@
 {
-    "name": "forjoyilive/sidekick",
+    "name": "forjoyilive/sidekickwp",
     "description": "Helping website admins get more done, more easily.",
 	"license": "GPL-3.0-or-later",
 	"keywords": [
@@ -9,7 +9,7 @@
 	"require": {
 		"php": ">=5.4.0"
 	},
-	"homepage": "https://github.com/forjoyilive/sidekick/",
+	"homepage": "https://github.com/forjoyilive/sidekickwp/",
 	"require-dev": {
 	},
     "authors": [
@@ -20,8 +20,8 @@
     ],
 	"autoload": {
 		"psr-4": {
-			"ForJoyILive\\Sidekick\\": "src",
-			"ForJoyILive\\Sidekick\\Modules\\": "src/modules"
+			"SidekickWP\\": "src",
+			"SidekickWP\\Modules\\": "src/modules"
 		}
 	}
 }

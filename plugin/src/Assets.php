@@ -4,7 +4,7 @@
  * Load assets
  */
 
-namespace ForJoyILive\Sidekick;
+namespace SidekickWP;
 
 class Assets
 {
@@ -24,12 +24,12 @@ class Assets
 
 	public function enqueue_settings_assets()
 	{
-		if (isset($_GET['page']) && $_GET['page'] === 'fj_sidekick') {
+		if (isset($_GET['page']) && $_GET['page'] === 'sidekickwp') {
 			wp_enqueue_style(
-				'fj-sidekick-settings-css',
-				FJ_SIDEKICK_BUILD_URL . '/css/settings.css',
+				'sidekickwp-settings-css',
+				SIDEKICKWP_BUILD_URL . '/css/settings.css',
 				array(),
-				filemtime(FJ_SIDEKICK_BUILD_PATH . '/css/settings.css'),
+				filemtime(SIDEKICKWP_BUILD_PATH . '/css/settings.css'),
 				'all'
 			);
 		}
@@ -38,7 +38,7 @@ class Assets
 	public function enqueue_editor_assets()
 	{
 
-		$asset_config_file = sprintf('%s/assets.php', FJ_SIDEKICK_BUILD_PATH);
+		$asset_config_file = sprintf('%s/assets.php', SIDEKICKWP_BUILD_PATH);
 
 		if (!file_exists($asset_config_file)) {
 			return;
@@ -58,8 +58,8 @@ class Assets
 		// Theme Gutenberg blocks JS.
 		if (is_admin()) {
 			wp_enqueue_script(
-				'fj-sidekick-blocks-js',
-				FJ_SIDEKICK_BUILD_URL . '/js/editor.js',
+				'sidekickwp-blocks-js',
+				SIDEKICKWP_BUILD_URL . '/js/editor.js',
 				$js_dependencies,
 				$version,
 				true
@@ -69,8 +69,8 @@ class Assets
 		// Theme Gutenberg blocks JS.
 		if (is_admin()) {
 			wp_enqueue_script(
-				'fj-sidekick-sidebar-js',
-				FJ_SIDEKICK_BUILD_URL . '/js/sidebar.js',
+				'sidekickwp-sidebar-js',
+				SIDEKICKWP_BUILD_URL . '/js/sidebar.js',
 				$js_dependencies,
 				$version,
 				true
@@ -84,31 +84,31 @@ class Assets
 		];
 
 		wp_enqueue_style(
-			'fj-sidekick-blocks-css',
-			FJ_SIDEKICK_BUILD_URL . '/css/editor.css',
+			'sidekickwp-blocks-css',
+			SIDEKICKWP_BUILD_URL . '/css/editor.css',
 			$css_dependencies,
-			filemtime(FJ_SIDEKICK_BUILD_PATH . '/css/editor.css'),
+			filemtime(SIDEKICKWP_BUILD_PATH . '/css/editor.css'),
 			'all'
 		);
 	}
 
 	public function set_translations()
 	{
-		load_plugin_textdomain('fj-sidekick', false, FJ_SIDEKICK_PLUGIN_PATH . '/languages');
-		wp_set_script_translations('fj-sidekick-sidebar-js', FJ_SIDEKICK_TEXTDOMAIN, FJ_SIDEKICK_PLUGIN_PATH . '/languages');
+		load_plugin_textdomain('sidekick-wp', false, SIDEKICKWP_PLUGIN_PATH . '/languages');
+		wp_set_script_translations('sidekickwp-sidebar-js', SIDEKICKWP_TEXTDOMAIN, SIDEKICKWP_PLUGIN_PATH . '/languages');
 	}
 
 	public function send_data_to_javascript()
 	{
 		ob_start();
 ?>
-		var fjSidekick = fjSidekick || {};
-		fjSidekick.requestKey="<?php echo Modules\AIWriter::getRequestKey() ?>";
-		fjSidekick.aiWriterRestURL="<?php echo rest_url('fj-sidekick/v1/ai-writer/') ?>";
-		fjSidekick.aiWriterRestNonce="<?php echo wp_create_nonce('wp_rest') ?>";
+		var sidekickWP = sidekickWP || {};
+		sidekickWP.requestKey="<?php echo Modules\AIWriter::getRequestKey() ?>";
+		sidekickWP.aiWriterRestURL="<?php echo rest_url('sidekickwp/v1/ai-writer/') ?>";
+		sidekickWP.aiWriterRestNonce="<?php echo wp_create_nonce('wp_rest') ?>";
 <?php
-		$fjSidekickVars = ob_get_clean();
+		$sidekickWPVars = ob_get_clean();
 
-		wp_add_inline_script('fj-sidekick-sidebar-js', $fjSidekickVars, 'before');
+		wp_add_inline_script('sidekickwp-sidebar-js', $sidekickWPVars, 'before');
 	}
 }

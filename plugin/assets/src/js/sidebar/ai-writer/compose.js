@@ -11,13 +11,13 @@ import {
 } from '@wordpress/components';
 
 /**
+ * Compose panel
  *
- * @param  props
- * @param  props.refreshHistory
- * @param  props.historyItems
- * @param  props.loadingHistory
- * @param  props.updateHistory
- * @param  props.loadingResult
+ * @param {Object}   props
+ * @param {array}    props.historyItems
+ * @param {boolean}  props.loadingHistory
+ * @param {function} props.updateHistory
+ * @param {boolean}  props.loadingResult
  */
 export default function Compose({
 	historyItems,
@@ -50,9 +50,9 @@ export default function Compose({
 	return (
 		<>
 			<PanelBody
-				title={__('Compose', 'fj-sidekick')}
+				title={__('Compose', 'sidekick-wp')}
 				icon="welcome-write-blog"
-				className="fj-sidekick-aiwriter-compose"
+				className="sidekickwp-aiwriter-compose"
 				initialOpen={true}
 			>
 				{loadingHistory && <Spinner />}
@@ -60,12 +60,12 @@ export default function Compose({
 					<div>
 						<TextareaControl
 							value={prompt}
-							label={__('Prompt', 'fj-sidekick')}
+							label={__('Prompt', 'sidekick-wp')}
 							onChange={(value) => setPrompt(value)}
 						/>
 
 						<RangeControl
-							label={__('Length', 'fj-sidekick')}
+							label={__('Length', 'sidekick-wp')}
 							min={10}
 							max={500}
 							value={length}
@@ -78,7 +78,7 @@ export default function Compose({
 							style={{ marginBottom: 20 }}
 							disabled={loadingResult}
 						>
-							{__('Get Content', 'fj-sidekick')}
+							{__('Get Content', 'sidekick-wp')}
 						</Button>
 
 						{loadingResult && <Spinner />}
@@ -88,7 +88,7 @@ export default function Compose({
 								<Divider />
 								<TextareaControl
 									value={result}
-									label={__('Result', 'fj-sidekick')}
+									label={__('Result', 'sidekick-wp')}
 									style={{
 										height: 300,
 									}}
@@ -98,10 +98,10 @@ export default function Compose({
 									onClick={() =>
 										navigator.clipboard.writeText(result)
 									}
-									className="fj-sidekick-copy-button"
+									className="sidekickwp-copy-button"
 								>
 									<Icon icon="admin-page" />
-									{__('Copy to Clipboard', 'fj-sidekick')}
+									{__('Copy to Clipboard', 'sidekick-wp')}
 								</Button>
 							</>
 						)}

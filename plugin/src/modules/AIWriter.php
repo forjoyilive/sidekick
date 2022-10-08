@@ -3,11 +3,11 @@
 /**
  * Adds AI-assisted writing tools to post and page editing screens
  * 
- * @package Sidekick
+ * @package sidekick-wp
  * @subpackage AI_Writer
  */
 
-namespace ForJoyILive\Sidekick\Modules;
+namespace SidekickWP\Modules;
 
 class AIWriter
 {
@@ -27,7 +27,7 @@ class AIWriter
     public function registerEndpoint()
     {
         add_action('rest_api_init', function () {
-            register_rest_route('fj-sidekick/v1', '/ai-writer/', array(
+            register_rest_route('sidekickwp/v1', '/ai-writer/', array(
                 'methods' => \WP_REST_Server::CREATABLE,
                 'callback' => array($this, 'getOpenAIResult'),
                 'permission_callback' => array($this, 'getOpenAIResultPermissionsCheck'),
@@ -49,11 +49,11 @@ class AIWriter
         $apiURL = 'https://api.openai.com/v1/completions';
 
         if (empty($prompt)) {
-            return new \WP_Error('fj_sidekick_openai_prompt_empty', __('Please fill out a prompt and try again.', FJ_SIDEKICK_TEXTDOMAIN), array('status' => 400));
+            return new \WP_Error('sidekickwp_openai_prompt_empty', __('Please fill out a prompt and try again.', SIDEKICKWP_TEXTDOMAIN), array('status' => 400));
         }
 
         if (self::$requestKey !== $key) {
-            return new \WP_Error('fj_sidekick_openai_key_invalid', __('Invalid request key.', FJ_SIDEKICK_TEXTDOMAIN), array('status' => 403));
+            return new \WP_Error('sidekickwp_openai_key_invalid', __('Invalid request key.', SIDEKICKWP_TEXTDOMAIN), array('status' => 403));
         }
 
         $response = wp_remote_request($apiURL, array(
@@ -79,18 +79,18 @@ class AIWriter
             $data['result'] = $textResult;
             return rest_ensure_response($data);
         } else if ($results['error']) {
-            return new \WP_Error('fj_sidekick_openai_error', $results['error']['message'], array('status' => 500));
+            return new \WP_Error('sidekickwp_openai_error', $results['error']['message'], array('status' => 500));
         } else if ($response->errors) {
-            return new \WP_Error('fj_sidekick_openai_error', $response->errors['http_request_failed'][0], array('status' => 500));
+            return new \WP_Error('sidekickwp_openai_error', $response->errors['http_request_failed'][0], array('status' => 500));
         } else {
-            return new \WP_Error('fj_sidekick_openai_error', __('There was an unknown error with the OpenAI API.', FJ_SIDEKICK_TEXTDOMAIN), array('status' => 500));
+            return new \WP_Error('sidekickwp_openai_error', __('There was an unknown error with the OpenAI API.', SIDEKICKWP_TEXTDOMAIN), array('status' => 500));
         }
     }
 
     public function getOpenAIResultPermissionsCheck()
     {
         if (!current_user_can('edit_posts')) {
-            return new \WP_Error('rest_forbidden', esc_html__('Sorry, but this API is restricted to users with the ability to edit posts.', FJ_SIDEKICK_TEXTDOMAIN), array('status' => rest_authorization_required_code()));
+            return new \WP_Error('rest_forbidden', esc_html__('Sorry, but this API is restricted to users with the ability to edit posts.', SIDEKICKWP_TEXTDOMAIN), array('status' => rest_authorization_required_code()));
         }
 
         return true;
@@ -103,6 +103,6 @@ class AIWriter
 
     private function getOpenAIKey()
     {
-        return get_option('fj_sidekick_openai_api_key');
+        return get_option('sidekickwp_openai_api_key');
     }
 }

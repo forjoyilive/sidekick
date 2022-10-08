@@ -1,19 +1,19 @@
 <?php return array(
     'root' => array(
-        'name' => 'forjoyilive/sidekick',
+        'name' => 'forjoyilive/sidekickwp',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '8d3292677553a01f08c7b71b64e150e9355576b8',
+        'reference' => '5bba3beb730d4158274080b3063b0373c351c504',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'dev' => true,
+        'dev' => false,
     ),
     'versions' => array(
-        'forjoyilive/sidekick' => array(
+        'forjoyilive/sidekickwp' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '8d3292677553a01f08c7b71b64e150e9355576b8',
+            'reference' => '5bba3beb730d4158274080b3063b0373c351c504',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

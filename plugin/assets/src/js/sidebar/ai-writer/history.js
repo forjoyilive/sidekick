@@ -3,12 +3,12 @@ import { Spinner, PanelBody, Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 /**
+ * History panel
  *
- * @param  root0
- * @param  root0.update
- * @param  root0.historyItems
- * @param  root0.loadingHistory
- * @param  root0.clearHistory
+ * @param {Object}   props
+ * @param {array}    props.historyItems
+ * @param {boolean}  props.loadingHistory
+ * @param {function} props.clearHistory
  */
 export default function History({
 	historyItems,
@@ -27,14 +27,14 @@ export default function History({
 
 	const displayHistory = (items) => {
 		setHistory(
-			<ul className="fj-sidekick-history-items">
+			<ul className="sidekickwp-history-items">
 				{items.map((item, index) => {
 					return (
-						<li className="fj-sidekick-history-item" key={index}>
-							<div className="fj-sidekick-history-item-prompt">
+						<li className="sidekickwp-history-item" key={index}>
+							<div className="sidekickwp-history-item-prompt">
 								{item.prompt}
 							</div>
-							<div className="fj-sidekick-history-item-result">
+							<div className="sidekickwp-history-item-result">
 								{item.result}
 							</div>
 						</li>
@@ -50,20 +50,24 @@ export default function History({
 
 	return (
 		<PanelBody
-			title={__('History', 'fj-sidekick')}
+			title={__('History', 'sidekick-wp')}
 			initialOpen={false}
-			className="fj-sidekick-aiwriter-history"
+			className="sidekickwp-aiwriter-history"
 		>
 			{loadingHistory && <Spinner />}
 			{!loadingHistory && (
 				<>
-					{!!history && history}
-					{!history && (
-						<p>{__('No history available.', 'fj-sidekick')}</p>
+					{!!history && (
+						<>
+							{history}
+							<Button isPrimary onClick={clearHistory}>
+								{__('Clear History', 'sidekick-wp')}
+							</Button>
+						</>
 					)}
-					<Button isPrimary onClick={clearHistory}>
-						{__('Clear History', 'fj-sidekick')}
-					</Button>
+					{!history && (
+						<p>{__('No history available.', 'sidekick-wp')}</p>
+					)}
 				</>
 			)}
 		</PanelBody>

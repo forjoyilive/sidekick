@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
 
-var SidekickLogo = function SidekickLogo() {
+var SidekickWPLogo = function SidekickWPLogo() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("svg", {
     viewBox: "0 0 1133.8533 1133.8533",
     height: "1133.8533",
@@ -52,7 +52,7 @@ var SidekickLogo = function SidekickLogo() {
   }))));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (SidekickLogo);
+/* harmony default export */ __webpack_exports__["default"] = (SidekickWPLogo);
 
 /***/ }),
 
@@ -88,13 +88,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 /**
+ * Compose panel
  *
- * @param  props
- * @param  props.refreshHistory
- * @param  props.historyItems
- * @param  props.loadingHistory
- * @param  props.updateHistory
- * @param  props.loadingResult
+ * @param {Object}   props
+ * @param {array}    props.historyItems
+ * @param {boolean}  props.loadingHistory
+ * @param {function} props.updateHistory
+ * @param {boolean}  props.loadingResult
  */
 
 function Compose(_ref) {
@@ -135,18 +135,18 @@ function Compose(_ref) {
     restoreStateFromHistory();
   }, [historyItems]);
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
-    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Compose', 'fj-sidekick'),
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Compose', 'sidekick-wp'),
     icon: "welcome-write-blog",
-    className: "fj-sidekick-aiwriter-compose",
+    className: "sidekickwp-aiwriter-compose",
     initialOpen: true
   }, loadingHistory && /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Spinner, null), !loadingHistory && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextareaControl, {
     value: prompt,
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Prompt', 'fj-sidekick'),
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Prompt', 'sidekick-wp'),
     onChange: function onChange(value) {
       return setPrompt(value);
     }
   }), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Length', 'fj-sidekick'),
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Length', 'sidekick-wp'),
     min: 10,
     max: 500,
     value: length,
@@ -162,9 +162,9 @@ function Compose(_ref) {
       marginBottom: 20
     },
     disabled: loadingResult
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Get Content', 'fj-sidekick')), loadingResult && /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Spinner, null), result && !loadingResult && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.__experimentalDivider, null), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextareaControl, {
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Get Content', 'sidekick-wp')), loadingResult && /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Spinner, null), result && !loadingResult && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.__experimentalDivider, null), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextareaControl, {
     value: result,
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Result', 'fj-sidekick'),
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Result', 'sidekick-wp'),
     style: {
       height: 300
     },
@@ -175,10 +175,10 @@ function Compose(_ref) {
     onClick: function onClick() {
       return navigator.clipboard.writeText(result);
     },
-    className: "fj-sidekick-copy-button"
+    className: "sidekickwp-copy-button"
   }, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Icon, {
     icon: "admin-page"
-  }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Copy to Clipboard', 'fj-sidekick'))))));
+  }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Copy to Clipboard', 'sidekick-wp'))))));
 }
 
 /***/ }),
@@ -223,12 +223,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 /**
+ * History panel
  *
- * @param  root0
- * @param  root0.update
- * @param  root0.historyItems
- * @param  root0.loadingHistory
- * @param  root0.clearHistory
+ * @param {Object}   props
+ * @param {array}    props.historyItems
+ * @param {boolean}  props.loadingHistory
+ * @param {function} props.clearHistory
  */
 
 function History(_ref) {
@@ -268,15 +268,15 @@ function History(_ref) {
 
   var displayHistory = function displayHistory(items) {
     setHistory( /*#__PURE__*/React.createElement("ul", {
-      className: "fj-sidekick-history-items"
+      className: "sidekickwp-history-items"
     }, items.map(function (item, index) {
       return /*#__PURE__*/React.createElement("li", {
-        className: "fj-sidekick-history-item",
+        className: "sidekickwp-history-item",
         key: index
       }, /*#__PURE__*/React.createElement("div", {
-        className: "fj-sidekick-history-item-prompt"
+        className: "sidekickwp-history-item-prompt"
       }, item.prompt), /*#__PURE__*/React.createElement("div", {
-        className: "fj-sidekick-history-item-result"
+        className: "sidekickwp-history-item-result"
       }, item.result));
     })));
   };
@@ -285,13 +285,13 @@ function History(_ref) {
     populateHistory();
   }, [historyItems]);
   return /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelBody, {
-    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('History', 'fj-sidekick'),
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('History', 'sidekick-wp'),
     initialOpen: false,
-    className: "fj-sidekick-aiwriter-history"
-  }, loadingHistory && /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Spinner, null), !loadingHistory && /*#__PURE__*/React.createElement(React.Fragment, null, !!history && history, !history && /*#__PURE__*/React.createElement("p", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('No history available.', 'fj-sidekick')), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+    className: "sidekickwp-aiwriter-history"
+  }, loadingHistory && /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Spinner, null), !loadingHistory && /*#__PURE__*/React.createElement(React.Fragment, null, !!history && /*#__PURE__*/React.createElement(React.Fragment, null, history, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
     isPrimary: true,
     onClick: clearHistory
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Clear History', 'fj-sidekick'))));
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Clear History', 'sidekick-wp'))), !history && /*#__PURE__*/React.createElement("p", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('No history available.', 'sidekick-wp'))));
 }
 
 /***/ }),
@@ -354,10 +354,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 /**
+ * AI Writer tab
  *
- * @param  root0
- * @param  root0.noticeOperations
- * @param  root0.noticeUI
+ * @param {Object}       props
+ * @param {Object}       props.noticeOperations
+ * @param {ReactElement} props.noticeUI
  */
 
 function AiWriter(_ref) {
@@ -379,7 +380,7 @@ function AiWriter(_ref) {
       loadingHistory = _useState6[0],
       setLoadingHistory = _useState6[1];
 
-  var apiURL = fjSidekick.aiWriterRestURL; // eslint-disable-line no-undef
+  var apiURL = sidekickWP.aiWriterRestURL; // eslint-disable-line no-undef
 
   var numberOfHistoryItems = 10;
   var getCurrentUser = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.useSelect)(function (select) {
@@ -458,11 +459,11 @@ function AiWriter(_ref) {
 
               if (updatedUserRecord) {
                 // On panel re-open and history refresh
-                setHistoryItems(((_updatedUserRecord$me = updatedUserRecord.meta) === null || _updatedUserRecord$me === void 0 ? void 0 : (_updatedUserRecord$me2 = _updatedUserRecord$me.fj_sidekick_history) === null || _updatedUserRecord$me2 === void 0 ? void 0 : _updatedUserRecord$me2.items) || []);
+                setHistoryItems(((_updatedUserRecord$me = updatedUserRecord.meta) === null || _updatedUserRecord$me === void 0 ? void 0 : (_updatedUserRecord$me2 = _updatedUserRecord$me.sidekickwp_history) === null || _updatedUserRecord$me2 === void 0 ? void 0 : _updatedUserRecord$me2.items) || []);
                 setLoadingHistory(false);
               } else {
                 // On page load
-                setHistoryItems(currentUser.meta.fj_sidekick_history.items || []);
+                setHistoryItems(currentUser.meta.sidekickwp_history.items || []);
                 setLoadingHistory(false);
               }
 
@@ -492,7 +493,7 @@ function AiWriter(_ref) {
             case 2:
               currentUser = _context3.sent;
               meta = currentUser && currentUser.meta || [];
-              history = meta && meta.fj_sidekick_history || [];
+              history = meta && meta.sidekickwp_history || [];
               items = history && history.items || [];
               newItems = [].concat(_toConsumableArray(items), [{
                 prompt: prompt,
@@ -505,7 +506,7 @@ function AiWriter(_ref) {
               }
 
               newMeta = _objectSpread(_objectSpread({}, meta), {}, {
-                fj_sidekick_history: _objectSpread(_objectSpread({}, history), {}, {
+                sidekickwp_history: _objectSpread(_objectSpread({}, history), {}, {
                   items: newItems
                 })
               });
@@ -546,11 +547,11 @@ function AiWriter(_ref) {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
-                  'X-WP-Nonce': fjSidekick.aiWriterRestNonce // eslint-disable-line no-undef
+                  'X-WP-Nonce': sidekickWP.aiWriterRestNonce // eslint-disable-line no-undef
 
                 },
                 body: JSON.stringify({
-                  key: fjSidekick.requestKey,
+                  key: sidekickWP.requestKey,
                   // eslint-disable-line no-undef
                   prompt: prompt,
                   length: length
@@ -573,7 +574,7 @@ function AiWriter(_ref) {
                 addHistoryItem(prompt, newResult, length);
               } else {
                 noticeOperations.removeAllNotices();
-                noticeOperations.createErrorNotice(data.message || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Something went wrong. Please try again.', 'fj-sidekick'));
+                noticeOperations.createErrorNotice(data.message || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Something went wrong. Please try again.', 'sidekick-wp'));
                 setLoadingResult(false);
               }
 
@@ -603,10 +604,10 @@ function AiWriter(_ref) {
             case 2:
               currentUser = _context5.sent;
               meta = currentUser && currentUser.meta || [];
-              history = meta && meta.fj_sidekick_history || null;
+              history = meta && meta.sidekickwp_history || null;
               newItems = [];
               newMeta = _objectSpread(_objectSpread({}, meta), {}, {
-                fj_sidekick_history: _objectSpread(_objectSpread({}, history), {}, {
+                sidekickwp_history: _objectSpread(_objectSpread({}, history), {}, {
                   items: newItems
                 })
               });
@@ -819,11 +820,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+ // The icon SVG had to be pasted here, the import would crash when the Sidekick sidebar
+// was closed but the kabab menu was opened
 
-{
-  /* The icon SVG had to be pasted here, the import would crash when the Sidekick sidebar
-  was closed but the kabab menu was opened */
-}
 var logo = /*#__PURE__*/React.createElement("svg", {
   viewBox: "0 0 1133.8533 1133.8533",
   width: "20",
@@ -860,24 +859,24 @@ var logo = /*#__PURE__*/React.createElement("svg", {
   },
   d: "m 2781.6698,1990.5261 h 387.4264 c 79.6683,-286.9745 172.9294,-546.0841 279.8202,-777.2559 86.4372,-187.2011 195.7861,-364.20287 327.2213,-531.50066 168.1783,-24.06734 340.0069,-36.76143 514.8441,-36.76143 823.703,0 1582.7249,276.49979 2189.7113,741.46659 -32.7808,178.9463 -101.8829,349.2342 -207.3795,510.7535 -153.0628,234.4003 -381.0794,412.0992 -683.9763,533.3533 -207.3246,82.8785 -444.825,174.562 -712.6848,275.0141 -267.8416,100.4521 -499.0867,195.2908 -693.552,284.5896 -382.6387,172.1957 -680.014,397.7541 -892.0347,676.8038 -212.0939,278.9949 -318.0675,643.326 -318.0675,1092.9387 0,258.2844 52.6108,499.0134 157.8322,722.2422 105.2215,223.1553 255.0741,422.4818 449.6128,597.8877 184.8897,165.7568 403.349,295.7245 655.2862,389.8111 251.8456,94.0133 514.9176,141.1025 789.1978,141.1025 312.4727,0 592.2745,-47.823 839.4423,-143.4872 247.0761,-95.6642 472.6896,-207.3246 676.7855,-334.8157 l 196.1163,325.2585 H 7119.91 l 38.2657,-2252.8333 h -387.4264 c -70.166,258.2843 -149.1005,505.3604 -236.7484,741.3749 -87.758,235.9413 -201.7111,449.6129 -342.0065,640.9229 -137.1217,184.9081 -304.5297,332.431 -502.2235,442.4403 -197.7489,110.0093 -440.0372,165.0231 -727.0298,165.0231 -302.9704,0 -561.2547,-97.3153 -774.8529,-291.7805 -213.6714,-194.5388 -320.4705,-432.1126 -320.4705,-712.6666 0,-293.413 68.5334,-536.5267 205.6734,-729.4145 137.0668,-192.9794 336.375,-351.5638 597.8877,-475.9181 232.7311,-111.6602 461.5548,-208.0583 686.3795,-289.3775 224.7881,-81.3192 442.4219,-168.2333 652.8833,-260.6873 191.3285,-82.9519 375.466,-176.9651 552.4495,-282.1866 176.965,-105.2398 330.7799,-228.035 461.5546,-368.2936 132.5725,-147.3577 232.7127,-307.7398 301.3378,-480.8709 360.6258,561.2545 569.8397,1229.0698 569.8397,1945.772 0,1990.66 -1613.7631,3604.4231 -3604.4414,3604.4231 -1990.6599,0 -3604.40466,-1613.7631 -3604.40466,-3604.4231 0,-1463.3418 872.02126,-2722.9546 2124.71836,-3287.6395 l -29.6257,1028.7345"
 }))));
-(0,_wordpress_plugins__WEBPACK_IMPORTED_MODULE_0__.registerPlugin)('fj-sidekick-sidebar', {
+(0,_wordpress_plugins__WEBPACK_IMPORTED_MODULE_0__.registerPlugin)('sidekickwp-sidebar', {
   icon: _s_logo__WEBPACK_IMPORTED_MODULE_4__["default"],
   render: function render() {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_wordpress_edit_post__WEBPACK_IMPORTED_MODULE_1__.PluginSidebarMoreMenuItem, {
-      target: "fj-sidekick-sidebar",
+      target: "sidekickwp-sidebar",
       icon: logo
-    }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Sidekick', 'fj-sidekick')), /*#__PURE__*/React.createElement(_wordpress_edit_post__WEBPACK_IMPORTED_MODULE_1__.PluginSidebar, {
-      name: "fj-sidekick-sidebar",
-      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Sidekick', 'fj-sidekick'),
+    }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Sidekick WP', 'sidekick-wp')), /*#__PURE__*/React.createElement(_wordpress_edit_post__WEBPACK_IMPORTED_MODULE_1__.PluginSidebar, {
+      name: "sidekickwp-sidebar",
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Sidekick WP', 'sidekick-wp'),
       icon: _s_logo__WEBPACK_IMPORTED_MODULE_4__["default"],
-      className: "fj-sidekick-sidebar"
+      className: "sidekickwp-sidebar"
     }, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TabPanel, {
-      className: "fj-sidekick-tab-panel",
+      className: "sidekickwp-tab-panel",
       activeClass: "active-tab",
       tabs: [{
-        name: 'fj-sidekick-ai-writer',
-        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('AI Writer', 'fj-sidekick'),
-        className: 'fj-sidekick-aiwriter',
+        name: 'sidekickwp-ai-writer',
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('AI Writer', 'sidekick-wp'),
+        className: 'sidekickwp-aiwriter',
         component: /*#__PURE__*/React.createElement(_sidebar_ai_writer__WEBPACK_IMPORTED_MODULE_5__["default"], null)
       }]
     }, function (tab) {

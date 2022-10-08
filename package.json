@@ -15,7 +15,7 @@
 		"lint-css:fix": "npm run lint-css -- --fix",
 		"precommit": "npm run lint:php && npm run lint-css:fix && npm run lint:fix && npm run prod",
 		"cypress:open": "node_modules/.bin/cypress open",
-		"i18n:makepot": "wp i18n make-pot ./plugin/ plugin/languages/fj-sidekick.pot --exclude='src'",
+		"i18n:makepot": "wp i18n make-pot ./plugin/ plugin/languages/sidekick-wp.pot --exclude='src'",
 		"i18n:makejson": "wp i18n make-json plugin/languages --no-purge"
 	},
 	"keywords": [

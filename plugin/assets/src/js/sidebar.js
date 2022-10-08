@@ -2,13 +2,11 @@ import { registerPlugin } from '@wordpress/plugins';
 import { PluginSidebar, PluginSidebarMoreMenuItem } from '@wordpress/edit-post';
 import { TabPanel } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import SidekickLogo from './s-logo';
+import SidekickWPLogo from './s-logo';
 import AIWriter from './sidebar/ai-writer';
 
-{
-	/* The icon SVG had to be pasted here, the import would crash when the Sidekick sidebar
-was closed but the kabab menu was opened */
-}
+// The icon SVG had to be pasted here, the import would crash when the Sidekick sidebar
+// was closed but the kabab menu was opened
 const logo = (
 	<svg viewBox="0 0 1133.8533 1133.8533" width="20" height="20">
 		<defs id="defs6" />
@@ -47,31 +45,31 @@ const logo = (
 	</svg>
 );
 
-registerPlugin('fj-sidekick-sidebar', {
-	icon: SidekickLogo,
+registerPlugin('sidekickwp-sidebar', {
+	icon: SidekickWPLogo,
 	render: () => {
 		return (
 			<>
 				<PluginSidebarMoreMenuItem
-					target="fj-sidekick-sidebar"
+					target="sidekickwp-sidebar"
 					icon={logo}
 				>
-					{__('Sidekick', 'fj-sidekick')}
+					{__('Sidekick WP', 'sidekick-wp')}
 				</PluginSidebarMoreMenuItem>
 				<PluginSidebar
-					name="fj-sidekick-sidebar"
-					title={__('Sidekick', 'fj-sidekick')}
-					icon={SidekickLogo}
-					className="fj-sidekick-sidebar"
+					name="sidekickwp-sidebar"
+					title={__('Sidekick WP', 'sidekick-wp')}
+					icon={SidekickWPLogo}
+					className="sidekickwp-sidebar"
 				>
 					<TabPanel
-						className="fj-sidekick-tab-panel"
+						className="sidekickwp-tab-panel"
 						activeClass="active-tab"
 						tabs={[
 							{
-								name: 'fj-sidekick-ai-writer',
-								title: __('AI Writer', 'fj-sidekick'),
-								className: 'fj-sidekick-aiwriter',
+								name: 'sidekickwp-ai-writer',
+								title: __('AI Writer', 'sidekick-wp'),
+								className: 'sidekickwp-aiwriter',
 								component: <AIWriter />,
 							},
 						]}

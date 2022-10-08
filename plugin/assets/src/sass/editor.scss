@@ -3,27 +3,27 @@
 	fill: #fff !important;
 }
 
-.fj-sidekick-sidebar {
+.sidekickwp-sidebar {
 
-	.components-button.fj-sidekick-copy-button {
+	.components-button.sidekickwp-copy-button {
 		padding: 0;
 	}
 
-	.fj-sidekick-aiwriter-history > .components-spinner,
-	.fj-sidekick-aiwriter-compose > .components-spinner {
+	.sidekickwp-aiwriter-history > .components-spinner,
+	.sidekickwp-aiwriter-compose > .components-spinner {
 		display: block;
 		margin: 0 auto;
 	}
 
-	.fj-sidekick-history-item {
+	.sidekickwp-history-item {
 
 		margin-bottom: 1em;
 
-		.fj-sidekick-history-item-prompt {
+		.sidekickwp-history-item-prompt {
 			font-weight: 700;
 		}
 
-		.fj-sidekick-history-item-result {
+		.sidekickwp-history-item-result {
 			white-space: pre-wrap;
 		}
 	}

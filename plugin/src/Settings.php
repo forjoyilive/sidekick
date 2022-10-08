@@ -3,11 +3,11 @@
 /**
  * Adds settings for OpenAI API key
  * 
- * @package Sidekick
+ * @package sidekick-wp
  * @subpackage AI_Writer
  */
 
-namespace ForJoyILive\Sidekick;
+namespace SidekickWP;
 
 class Settings
 {
@@ -25,24 +25,24 @@ class Settings
 
     public function settings_init()
     {
-        register_setting('fj_sidekick_options', 'fj_sidekick_openai_api_key');
+        register_setting('sidekickwp_options', 'sidekickwp_openai_api_key');
 
         add_settings_section(
-            'fj_sidekick_openai',
-            __('OpenAI Settings', FJ_SIDEKICK_TEXTDOMAIN),
+            'sidekickwp_openai',
+            __('OpenAI Settings', SIDEKICKWP_TEXTDOMAIN),
             array($this, 'openai_section'),
-            'fj_sidekick'
+            'sidekickwp'
         );
 
         add_settings_field(
-            'fj_sidekick_openai_api_key',
-            __('API Key', FJ_SIDEKICK_TEXTDOMAIN),
+            'sidekickwp_openai_api_key',
+            __('API Key', SIDEKICKWP_TEXTDOMAIN),
             array($this, 'openai_api_key_callback'),
-            'fj_sidekick',
-            'fj_sidekick_openai',
+            'sidekickwp',
+            'sidekickwp_openai',
             array(
-                'label_for'         => 'fj_sidekick_openai_api_key',
-                'class'             => 'fj-sidekick-row',
+                'label_for'         => 'sidekickwp_openai_api_key',
+                'class'             => 'sidekickwp-row',
             )
         );
     }
@@ -64,13 +64,13 @@ class Settings
      */
     function openai_api_key_callback($args)
     {
-        $openai_api_key = get_option('fj_sidekick_openai_api_key');
+        $openai_api_key = get_option('sidekickwp_openai_api_key');
 ?>
 
-        <input type="text" id="<?php echo esc_attr($args['label_for']); ?>" name="fj_sidekick_openai_api_key" value="<?php echo esc_attr($openai_api_key); ?>" size="50" />
+        <input type="text" id="<?php echo esc_attr($args['label_for']); ?>" name="sidekickwp_openai_api_key" value="<?php echo esc_attr($openai_api_key); ?>" size="50" />
 
         <p class="description">
-            <?php _e('To get an API key, visit <a href="https://beta.openai.com/account/api-keys">OpenAI API Keys</a>.', FJ_SIDEKICK_TEXTDOMAIN); ?>
+            <?php _e('To get an API key, visit <a href="https://beta.openai.com/account/api-keys">OpenAI API Keys</a>.', SIDEKICKWP_TEXTDOMAIN); ?>
         </p>
     <?php
     }
@@ -81,10 +81,10 @@ class Settings
     function add_options_page()
     {
         add_options_page(
-            'Sidekick Options',
-            'Sidekick',
+            __('Sidekick WP Options', SIDEKICKWP_TEXTDOMAIN),
+            __('Sidekick WP', SIDEKICKWP_TEXTDOMAIN),
             'manage_options',
-            'fj_sidekick',
+            'sidekickwp',
             array($this, 'options_page_html')
         );
     }
@@ -99,18 +99,18 @@ class Settings
         }
 
         if (isset($_GET['settings-updated'])) {
-            add_settings_error('fj_sidekick_messages', 'fj_sidekick_message', __('Settings Saved', FJ_SIDEKICK_TEXTDOMAIN), 'updated');
+            add_settings_error('sidekickwp_messages', 'sidekickwp_message', __('Settings Saved', SIDEKICKWP_TEXTDOMAIN), 'updated');
         }
 
     ?>
-        <div class="wrap fj-sidekick-options">
-            <img alt="<?php _e('Sidekick logo', FJ_SIDEKICK_TEXTDOMAIN); ?>" src="<?php echo FJ_SIDEKICK_BUILD_URL . '/images/s-logo.svg'; ?>" class="fj-sidekick-logo" />
+        <div class="wrap sidekickwp-options">
+            <img alt="<?php _e('Sidekick logo', SIDEKICKWP_TEXTDOMAIN); ?>" src="<?php echo SIDEKICKWP_BUILD_URL . '/images/s-logo.svg'; ?>" class="sidekickwp-logo" />
             <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
             <form action="options.php" method="post">
                 <?php
-                settings_fields('fj_sidekick_options');
+                settings_fields('sidekickwp_options');
 
-                do_settings_sections('fj_sidekick');
+                do_settings_sections('sidekickwp');
 
                 submit_button('Save Settings');
                 ?>

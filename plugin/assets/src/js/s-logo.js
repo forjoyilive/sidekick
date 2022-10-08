@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SidekickLogo = () => {
+const SidekickWPLogo = () => {
 	return (
 		<svg
 			viewBox="0 0 1133.8533 1133.8533"
@@ -44,4 +44,4 @@ const SidekickLogo = () => {
 	);
 };
 
-export default SidekickLogo;
+export default SidekickWPLogo;

@@ -1,15 +1,15 @@
 <?php
 
 /**
- * Sidekick Plugin
+ * Sidekick WP
  * 
- * @package sidekick
+ * @package sidekick-wp
  * @author Nabha Cosley
  * 
  * @wordpress-plugin
  * 
- * Plugin Name:       Sidekick
- * Plugin URI:        https://github.com/forjoyilive/sidekick/
+ * Plugin Name:       Sidekick WP
+ * Plugin URI:        https://github.com/forjoyilive/sidekickwp/
  * Description:       Helping you get more done, more easily.
  * Version:           1.0.0
  * Requires at least: 6.0
@@ -18,16 +18,16 @@
  * Author URI:        https://forjoyi.live/
  * License:           GPL v3 or later
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
- * Update URI:        https://github.com/forjoyilive/sidekick/
- * Text Domain:       fj-sidekick
+ * Update URI:        https://github.com/forjoyilive/sidekickwp/
+ * Text Domain:       sidekick-wp
  * Domain Path:       /languages
  */
-define('FJ_SIDEKICK_VERSION', '1.0.0');
+define('SIDEKICKWP_VERSION', '1.0.0');
 
 require_once('vendor/autoload.php');
 
-use ForJoyILive\Sidekick\Plugin;
+use SidekickWP\Plugin;
 
-if (class_exists('ForJoyILive\Sidekick\Plugin')) {
+if (class_exists('SidekickWP\Plugin')) {
     $the_plugin = new Plugin();
 }

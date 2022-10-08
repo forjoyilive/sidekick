@@ -6,6 +6,6 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'ForJoyILive\\Sidekick\\Modules\\' => array($baseDir . '/src/modules'),
-    'ForJoyILive\\Sidekick\\' => array($baseDir . '/src'),
+    'SidekickWP\\Modules\\' => array($baseDir . '/src/modules'),
+    'SidekickWP\\' => array($baseDir . '/src'),
 );

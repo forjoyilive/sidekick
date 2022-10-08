@@ -6,21 +6,22 @@ import Compose from './compose';
 import History from './history';
 import {
 	withNotices,
-	__experimentalDivider as Divider,
+	__experimentalDivider as Divider, // eslint-disable-line
 } from '@wordpress/components';
 
 /**
+ * AI Writer tab
  *
- * @param  root0
- * @param  root0.noticeOperations
- * @param  root0.noticeUI
+ * @param {Object}       props
+ * @param {Object}       props.noticeOperations
+ * @param {ReactElement} props.noticeUI
  */
 function AiWriter({ noticeOperations, noticeUI }) {
 	const [historyItems, setHistoryItems] = useState([]);
 	const [loadingResult, setLoadingResult] = useState(false);
 	const [loadingHistory, setLoadingHistory] = useState(true);
 
-	const apiURL = fjSidekick.aiWriterRestURL; // eslint-disable-line no-undef
+	const apiURL = sidekickWP.aiWriterRestURL; // eslint-disable-line no-undef
 	const numberOfHistoryItems = 10;
 
 	const getCurrentUser = useSelect((select) => {
@@ -56,12 +57,12 @@ function AiWriter({ noticeOperations, noticeUI }) {
 		if (updatedUserRecord) {
 			// On panel re-open and history refresh
 			setHistoryItems(
-				updatedUserRecord.meta?.fj_sidekick_history?.items || []
+				updatedUserRecord.meta?.sidekickwp_history?.items || []
 			);
 			setLoadingHistory(false);
 		} else {
 			// On page load
-			setHistoryItems(currentUser.meta.fj_sidekick_history.items || []);
+			setHistoryItems(currentUser.meta.sidekickwp_history.items || []);
 			setLoadingHistory(false);
 		}
 	};
@@ -69,7 +70,7 @@ function AiWriter({ noticeOperations, noticeUI }) {
 	const addHistoryItem = async (prompt, newResult, length) => {
 		const currentUser = await getCurrentUser();
 		const meta = (currentUser && currentUser.meta) || [];
-		const history = (meta && meta.fj_sidekick_history) || [];
+		const history = (meta && meta.sidekickwp_history) || [];
 		const items = (history && history.items) || [];
 		const newItems = [...items, { prompt, result: newResult, length }];
 
@@ -79,7 +80,7 @@ function AiWriter({ noticeOperations, noticeUI }) {
 
 		const newMeta = {
 			...meta,
-			fj_sidekick_history: {
+			sidekickwp_history: {
 				...history,
 				items: newItems,
 			},
@@ -100,10 +101,10 @@ function AiWriter({ noticeOperations, noticeUI }) {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				'X-WP-Nonce': fjSidekick.aiWriterRestNonce, // eslint-disable-line no-undef
+				'X-WP-Nonce': sidekickWP.aiWriterRestNonce, // eslint-disable-line no-undef
 			},
 			body: JSON.stringify({
-				key: fjSidekick.requestKey, // eslint-disable-line no-undef
+				key: sidekickWP.requestKey, // eslint-disable-line no-undef
 				prompt,
 				length,
 			}),
@@ -120,7 +121,7 @@ function AiWriter({ noticeOperations, noticeUI }) {
 			noticeOperations.removeAllNotices();
 			noticeOperations.createErrorNotice(
 				data.message ||
-					__('Something went wrong. Please try again.', 'fj-sidekick')
+					__('Something went wrong. Please try again.', 'sidekick-wp')
 			);
 			setLoadingResult(false);
 		}
@@ -129,12 +130,12 @@ function AiWriter({ noticeOperations, noticeUI }) {
 	const clearHistory = async () => {
 		const currentUser = await getCurrentUser();
 		const meta = (currentUser && currentUser.meta) || [];
-		const history = (meta && meta.fj_sidekick_history) || null;
+		const history = (meta && meta.sidekickwp_history) || null;
 		const newItems = [];
 
 		const newMeta = {
 			...meta,
-			fj_sidekick_history: {
+			sidekickwp_history: {
 				...history,
 				items: newItems,
 			},

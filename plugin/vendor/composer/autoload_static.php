@@ -7,19 +7,19 @@ namespace Composer\Autoload;
 class ComposerStaticInite249a3d27f49927c17d091a21a09c864
 {
     public static $prefixLengthsPsr4 = array (
-        'F' => 
+        'S' => 
         array (
-            'ForJoyILive\\Sidekick\\Modules\\' => 29,
-            'ForJoyILive\\Sidekick\\' => 21,
+            'SidekickWP\\Modules\\' => 19,
+            'SidekickWP\\' => 11,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'ForJoyILive\\Sidekick\\Modules\\' => 
+        'SidekickWP\\Modules\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/modules',
         ),
-        'ForJoyILive\\Sidekick\\' => 
+        'SidekickWP\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
