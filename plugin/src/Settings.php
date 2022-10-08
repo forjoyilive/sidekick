@@ -104,7 +104,7 @@ class Settings
 
     ?>
         <div class="wrap sidekickwp-options">
-            <img alt="<?php _e('Sidekick logo', SIDEKICKWP_TEXTDOMAIN); ?>" src="<?php echo SIDEKICKWP_BUILD_URL . '/images/s-logo.svg'; ?>" class="sidekickwp-logo" />
+            <img alt="<?php _e('Sidekick WP logo', SIDEKICKWP_TEXTDOMAIN); ?>" src="<?php echo SIDEKICKWP_BUILD_URL . '/images/s-logo.svg'; ?>" class="sidekickwp-logo" />
             <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
             <form action="options.php" method="post">
                 <?php
